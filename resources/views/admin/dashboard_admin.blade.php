@@ -5,17 +5,78 @@
 
 
     {{-- card row --}}
+
+    {{-- error message --}}
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block mt-3">
+            <strong>{{ $message }} berhasil di tambahkan</strong>
+        </div>
+    @endif
+    @if ($message = Session::get('delete'))
+        <div class="alert alert-danger alert-block mt-3">
+            <strong> {{$message }} berhasil di hapus</strong>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col">
+            {{-- jumlah permintaan --}}
             <div class="card mt-3">
                 <div class="card-header bg-dark text-white">
                     <h5>Jumlah Permintaan</h5>
                 </div>
                 <div class="card-body">
-                    <h5>belum</h5>
+
                 </div>
                 <div class="card-footer">
-                    <a href="">Lihat lebih detail</a>
+                    <a href="{{ route('akses.index') }}">Lihat lebih detail</a>
+                </div>
+            </div>
+
+            {{-- jumlah siswa yg terdaftar --}}
+            <div class="card mt-3">
+                <div class="card-header bg-dark text-white">
+                    <h5>Jumlah Siswa yang terdaftar</h5>
+                </div>
+                <div class="card-body">
+                    {{ $jumlah_siswa }}
+                </div>
+                <div class="card-footer">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#detailsiswa">Lihat lebih detail</a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="detailsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Detail Siswa</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($detail_siswa as $i => $item)
+                                                <tr>
+                                                    <th scope="row">{{ ++$i }}</th>
+                                                    {{-- <td>{{ $item-> name }}</td> --}}
+                                                    <td>{{ $item->email }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,11 +100,11 @@
                             {{-- @foreach ($reservasi as $i->$item) --}}
                             <tr>
                                 <th scope="row"></th>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>aaa</td>
+                                <td>aaa</td>
+                                <td>aaa</td>
+                                <td>aaa</td>
+                                <td>aaa</td>
                                 <td></td>
                                 <td>
                                     <a href="" class="btn btn-danger">
@@ -63,22 +124,11 @@
     </div>
 
     <div class="row">
-        {{-- error message --}}
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block mt-3">
-                <strong>{{ $message }}</strong>
-            </div>
-        @endif
-        @if ($message = Session::get('delete'))
-            <div class="alert alert-danger alert-block mt-3">
-                <strong>{{ $message }}</strong>
-            </div>
-        @endif
 
         {{-- tabel dan modal fitur lapangan --}}
         <div class="col-3 mt-4 mb-4">
             <div class="card p-0">
-                <div class="card-header bg-dark text-white text-center">
+                <div class="card-header bg-dark text-white">
                     <h5>Fitur - Fitur Lapangan</h5>
                 </div>
                 <div class="card-body">
@@ -104,6 +154,7 @@
                     </table>
                 </div>
                 <div class="card-footer">
+                    {{-- {{$lapangan->links()}} --}}
 
                     {{-- FITUR LAPANGAN --}}
 
@@ -120,28 +171,25 @@
                                     <h5 class="modal-title" id="exampleModalLabel">TAMBAH LAPANGAN</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('admin.store') }}" method="POST"  enctype="multipart/form-data">
+                                    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
                                             <label for="">TAMBAH LAPANGAN</label>
                                             <input type="text" name="nama_lapangan" id="nama_lapangan"
                                                 class="form-control" placeholder="" aria-describedby="helpId" re>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">TAMBAH FOTO LAPANGAN</label>
-                                            <input type="file" name="nama_lapangan" id="nama_lapangan"
-                                                class="form-control" placeholder="" aria-describedby="helpId" re>
-                                        </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary"
                                         data-bs-dismiss="modal">TUTUP</button>
-                                    <input type="submit" class="btn btn-success">
+                                    <input type="submit" class="btn btn-success" value="SUBMIT">
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    
                     {{-- ================== --}}
 
                 </div>

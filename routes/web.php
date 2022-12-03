@@ -7,15 +7,17 @@ use App\http\Controllers\loginController;
 use App\http\Controllers\reservasiController;
 use App\http\Controllers\welcomeController;
 use App\http\Controllers\registerController;
+use App\http\Controllers\aksesController;
 use App\http\Controllers\lapanganController;
 
 
 // Route::resource('loginsiswa', loginsiswaController::class);
-Route::resource('siswa', siswaController::class);
-Route::resource('admin', adminController::class);
+// Route::resource('siswa', siswaController::class);
+// Route::resource('admin', adminController::class);
 // Route::resource('loginadmin', loginadminController::class);
 Route::resource('reservasi', reservasiController::class);
 Route::resource('welcome', welcomeController::class);
+Route::resource('akses', aksesController::class);
 // Route::resource('register', registerController::class);
 
 
@@ -36,28 +38,29 @@ Route::resource('welcome', welcomeController::class);
 
 
 route::middleware('guest')->group(function () {
-    Route::get('/login', [loginController::class, 'index'])->name('login');
-    Route::post('/login', [loginController::class, 'authenticate']);
-    Route::resource('register', registerController::class);
+    //welcome page
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::get('/tabel_reservasi', function () {
-        return view('tabel_reservasi');
-    });
-    Route::get('/jadwal_lapangan', function () {
-        return view('jadwal_lapangan');
-    });
+
+    Route::get('/login', [loginController::class, 'index'])->name('login');
+    Route::post('/login', [loginController::class, 'authenticate']);
+    Route::resource('register', registerController::class);
+    Route::resource('reservasi', reservasiController::class);
+    Route::get('/jadwal_lapangan', reservasiController::class);
+    Route::get('/tabel_reservasi', reservasiController::class);
 });
 
 
 route::middleware('auth')->group(function () {
-
+    //siswa
     Route::resource('siswa', siswaController::class);
+
+    //admin
     Route::resource('admin', adminController::class);
+    Route::resource('akses', aksesController::class);
 
-    Route::resource('reservasi', reservasiController::class);
-
+    //nambah route function
     Route::get('admin/tambah', [adminController::class, 'tambah'])->name('admin.tambah');
     Route::get('admin/{id}/hapus', [adminController::class, 'hapus'])->name('admin.hapus');
     Route::post('logout', [loginController::class, 'logout']);

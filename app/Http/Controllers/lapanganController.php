@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\file;
+use Illuminate\Support\Facades\File;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
@@ -29,7 +29,6 @@ class lapanganController extends Controller
     public function create()
     {
         //
-        
     }
 
     /**
@@ -40,7 +39,32 @@ class lapanganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = [
+            'foto'=> 'required|mimes:jpg,bmp,png,jpeg'
+        ];
+
+        $this->validate($request,[
+            'nama_lapangan'=> 'required',
+            'foto' => 'required'
+        ], $message );
+
+       //ambil parameter
+       $file = $request->file('foto');
+        
+       //rename
+       $nama_file = time() . '_' . $file->getClientOriginalName();
+       
+       //proses upload
+       $tujuan_upload = './template/img';
+       $file->move($tujuan_upload, $nama_file);
+
+        lapangan::create([
+            'nama_lapangan'=> $request-> nama_lapangan,
+            'foto' => $nama_file
+        ]); 
+
+        Session::flash('success', 'Lapangan Berhasil Ditambahkan');
+        return redirect(route('admin.index'));
     }
 
     /**

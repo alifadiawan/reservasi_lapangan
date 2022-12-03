@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use App\Models\lapangan;
 use App\Models\reservasi;
 use Illuminate\Http\Request;
@@ -12,8 +13,6 @@ class loginController extends Controller
     public function index(){
         return view ('login');
     }
-
-    
 
     public function authenticate(Request $request){
         $data=$request->validate([
@@ -26,8 +25,10 @@ class loginController extends Controller
  
             return redirect()->intended(route('admin.index'));
         }
-        return back()->withErrors('danger', 'Login anda gagal');
+        Session::flash('danger', 'login anda gagal');
+        return back()->withErrors('loginerror', 'Login anda gagal');
     }
+    
 
     public function logout(Request $request){
         Auth::logout();

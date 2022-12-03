@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\file;
 use Illuminate\Support\Facades\Auth;
 use App\Models\reservasi;
 use App\Models\lapangan;
+use App\Models\User;
 
 class adminController extends Controller
 {
@@ -16,12 +17,18 @@ class adminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct() {
+        $this->middleware('auth');
+      }
+
     public function index()
     {
-        //
         $reservasi = reservasi::all();
-        $lapangan = lapangan::all();
-        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan'));
+        $lapangan = lapangan::paginate(4);
+        $jumlah_siswa = User::where('role','siswa')->count();
+        $detail_siswa = User::where('role','siswa')->get('name','email');
+        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa'));
         
     }
 
@@ -36,7 +43,7 @@ class adminController extends Controller
         return view( ('admin.tambah_fitur'));
     }
 
-    public function tambah($id)
+    public function tambah()
     {
         //
     }
@@ -59,25 +66,14 @@ class adminController extends Controller
 
         $this->validate($request,[
             'nama_lapangan'=> 'required',
-            'foto' => 'required'
         ], $message );
-
-       //ambil parameter
-       $file = $request->file('foto');
-        
-       //rename
-       $nama_file = time() . '_' . $file->getClientOriginalName();
-       
-       //proses upload
-       $tujuan_upload = './template/img';
-       $file->move($tujuan_upload, $nama_file);
 
         lapangan::create([
             'nama_lapangan'=> $request-> nama_lapangan,
-            'foto' => $nama_file
         ]); 
 
-        Session::flash('success', 'Lapangan Berhasil Ditambahkan');
+
+        Session::flash('success', $request-> nama_lapangan);
         return redirect(route('admin.index'));
     }
 
@@ -90,6 +86,7 @@ class adminController extends Controller
     public function show($id)
     {
         //
+        return view('admin.detail_siswa');
     }
 
     /**

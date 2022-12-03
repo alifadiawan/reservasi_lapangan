@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\file;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
@@ -16,6 +15,7 @@ class reservasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -24,6 +24,7 @@ class reservasiController extends Controller
         return view ('jadwal_lapangan' , compact('data', 'lapangan'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -63,8 +64,7 @@ class reservasiController extends Controller
             'waktu_mulai'=> 'required',
             'waktu_selesai'=> 'required',
             'kegiatan'=> 'required',
-            'penanggungjawab'=> 'required|min:5',
-            'kode_booking' => 'required|unique|min:5'
+            'penanggungjawab'=> 'required',
         ], $message );
 
 
@@ -74,12 +74,11 @@ class reservasiController extends Controller
             'waktu_mulai'=> $request-> waktu_mulai,
             'waktu_selesai'=> $request-> waktu_selesai,
             'kegiatan'=> $request -> kegiatan ,
-            'penanggungjawab'=> $request-> penanggungjawab,
-            'kode_booking'=> $request-> kode_booking
+            'penanggungjawab'=> $request-> penanggungjawab
         ]); 
 
         Session::flash('success', 'data berhasil ditambah !!!');
-        return redirect('jadwal_lapangan' , compact('reservasi'));
+        return redirect('jadwal_lapangan');
         
     }
 

@@ -5,22 +5,31 @@
 
     <div class="container mt-3">
         <div class="row">
+            <div class="row">
+                <div class="col mt-3">
+                    <a href="{{route('admin.index')}}" class="btn btn-danger mb-3">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali ke Dashboard
+                    </a>
+                </div>
+            </div>
             <div class="col-4 mt-3">
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         <h5>Permintaan dari</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover table-borderless">
+                        <table class="table table-borderless text-center">
                             <thead >
                                 <tr>
                                     <th>NO</th>
                                     <th>Nama Pemesan</th>
+                                    <th>ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
                                     <tr>
-                                        <td>auhd</td>
+                                        <td>1</td>
+                                        <td>alip</td>
                                         <td>
                                             <a href="" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-eye"></i>

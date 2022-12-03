@@ -7,8 +7,7 @@
         <h1 class="text-center mb-3">RESERVASI LAPANGAN</h1>
         <div class="col">
             {{-- form lapangan --}}
-            <form action="{{route('reservasi.store')}}" method="POST" class="text-white signin-form">
-                @csrf
+            <form method="post" enctype="multipart/form-data" action="{{route('reservasi.store')}}">
                 <div class="form-group">
                     <label for="nama_lapangan">Pilih Lapangan</label>
                     <select class="form-select" aria-label="Default select example">
@@ -54,16 +53,13 @@
                     <input type="text" name="penanggungjawab" id="penanggungjawab" class="form-control" placeholder=""
                         aria-describedby="helpId">
                 </div>
-                <div class="form-group">
-                    <input type="hidden" name="kode_booking" id="kode_booking" class="form-control" placeholder=""
-                        aria-describedby="helpId">
-                </div>
                 <div class="form-group mt-3 text-center">
                     <input type="submit" class="btn btn-success" value="SUBMIT">
                     <a href="/" class="btn btn-outline-danger">BATAL</a>
                 </div>
             </form>
         </div>
+
 
         {{-- carousel lapangan --}}
         <div class="col mt-5">

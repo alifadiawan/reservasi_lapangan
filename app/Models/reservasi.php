@@ -15,8 +15,6 @@ class reservasi extends Model
         'waktu_selesai',
         'kegiatan',
         'penanggungjawab',
-        'foto',
-        'kode_booking'
     ];
     protected $table = 'reservasi';
 }

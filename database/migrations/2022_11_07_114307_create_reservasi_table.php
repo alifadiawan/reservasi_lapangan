@@ -21,9 +21,7 @@ return new class extends Migration
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->text('kegiatan');
-            $table->text('penanggungjawab'); 
-            $table->char('foto');    
-            $table->char('kode_booking');      
+            $table->text('penanggungjawab');       
         });
     }
 

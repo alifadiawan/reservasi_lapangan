@@ -2,16 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\file;
-use Illuminate\Support\Facades\Validator;
 
-use App\Models\reservasi;
-use App\Models\lapangan;
-use App\Models\User;
-
-class registerController extends Controller
+class aksesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +13,8 @@ class registerController extends Controller
      */
     public function index()
     {
-        //
-        return view('/register');
+        
+        return view('admin.akses');
     }
 
     /**
@@ -32,7 +25,6 @@ class registerController extends Controller
     public function create()
     {
         //
-        return view('/register_siswa');
     }
 
     /**
@@ -43,16 +35,7 @@ class registerController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate(request(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        
-        $user = User::create(request(['name', 'email', 'password']));
-        
-        return redirect()->to('login')->with(['register_success' => $user->email]);
+        //
     }
 
     /**
@@ -99,5 +82,4 @@ class registerController extends Controller
     {
         //
     }
-    
 }

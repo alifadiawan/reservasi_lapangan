@@ -9,8 +9,7 @@ class lapangan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_lapangan',
-        'foto'
+        'nama_lapangan'
     ];
     protected $table = 'lapangan';
 }

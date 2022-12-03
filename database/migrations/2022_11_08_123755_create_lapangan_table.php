@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->char('nama_lapangan');
-            $table->char('foto');
         });
     }
 
