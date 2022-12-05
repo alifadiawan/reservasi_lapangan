@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->char('hari');
+            $table->BigInteger('jenis_lapangan_id')->unsigned();
+            $table->foreign('jenis_lapangan_id')->references('id')->on('lapangan')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             $table->date('tanggal');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->text('kegiatan');
-            $table->text('penanggungjawab');       
+            $table->text('penanggungjawab'); 
+            $table->timestamps();      
         });
     }
 

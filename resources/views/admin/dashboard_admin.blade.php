@@ -3,9 +3,6 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-
-    {{-- card row --}}
-
     {{-- error message --}}
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block mt-3">
@@ -14,10 +11,11 @@
     @endif
     @if ($message = Session::get('delete'))
         <div class="alert alert-danger alert-block mt-3">
-            <strong> {{$message }} berhasil di hapus</strong>
+            <strong> {{ $message }} berhasil di hapus</strong>
         </div>
     @endif
 
+    {{-- card row --}}
     <div class="row">
         <div class="col">
             {{-- jumlah permintaan --}}
@@ -79,55 +77,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-9">
+
+            {{-- fitur lapangan --}}
             <div class="card mt-3">
-                <div class="card-header p-0">
-                    <table class="table table-striped-dark table-borderless text-white text-center">
-                        <thead class="bg-dark">
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Hari</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Mulai</th>
-                                <th scope="col">Selesai</th>
-                                <th scope="col-lg">kegiatan</th>
-                                <th scope="col">Peminjam</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-dark">
-                            {{-- @foreach ($reservasi as $i->$item) --}}
-                            <tr>
-                                <th scope="row"></th>
-                                <td>aaa</td>
-                                <td>aaa</td>
-                                <td>aaa</td>
-                                <td>aaa</td>
-                                <td>aaa</td>
-                                <td></td>
-                                <td>
-                                    <a href="" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a href="" class="btn btn-success">
-                                        <i class="fa fa-print"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {{-- @endforeach --}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-
-        {{-- tabel dan modal fitur lapangan --}}
-        <div class="col-3 mt-4 mb-4">
-            <div class="card p-0">
                 <div class="card-header bg-dark text-white">
                     <h5>Fitur - Fitur Lapangan</h5>
                 </div>
@@ -157,7 +109,6 @@
                     {{-- {{$lapangan->links()}} --}}
 
                     {{-- FITUR LAPANGAN --}}
-
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#example_Modal">TAMBAH FITUR LAPANGAN</button>
@@ -188,19 +139,66 @@
                             </div>
                         </div>
                     </div>
-
-                    
-                    {{-- ================== --}}
-
                 </div>
             </div>
         </div>
-        <div class="col-9 mt-4 mb-4">
+        <div class="col-lg-9">
+            <div class="card mt-3">
+                <div class="card-header p-0">
+                    <table class="table table-striped-dark table-borderless text-white text-center">
+                        <thead class="bg-dark">
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Mulai</th>
+                                <th scope="col">Selesai</th>
+                                <th scope="col-lg">kegiatan</th>
+                                <th scope="col">Peminjam</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-dark">
+                            @foreach ($reservasi as $i => $item)
+                                <tr>
+                                    <th scope="row">{{ ++$i }}</th>
+                                    <td>{{ $item->tanggal }}</td>
+                                    <td>{{ $item->waktu_mulai }}</td>
+                                    <td>{{ $item->waktu_selesai }}</td>
+                                    <td>{{ $item->kegiatan }}</td>
+                                    <td>{{ $item->penanggungjawab }}</td>
+                                    <td></td>
+                                    <td>
+                                        <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
+                                            <i class="fa fa-print"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
         </div>
+    </div>
+
+
+    {{-- tabel dan modal fitur lapangan --}}
+    <div class="col-3 mt-4 mb-4">
+
+    </div>
+    <div class="col-9 mt-4 mb-4">
+
     </div>
     <div class="row justify-content-center">
 
     </div>
+
+    <script>
+        $('.print-window').click(function() {
+            window.print();
+        });
+    </script>
 
 @endsection

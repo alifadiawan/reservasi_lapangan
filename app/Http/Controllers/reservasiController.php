@@ -16,6 +16,11 @@ class reservasiController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function __invoke()
+    {
+        return redirect('/jadwal_lapangan' . request()->segment(1));
+    }
+
     public function index()
     {
         //
@@ -39,8 +44,6 @@ class reservasiController extends Controller
     public function tambah()
     {
         //
-        $lapangan = lapangan::all();
-        return view('tabel_reservasi', compact('lapangan'));
     }
 
     /**
@@ -59,7 +62,7 @@ class reservasiController extends Controller
         ];
 
         $this->validate($request,[
-            'hari'=> 'required',
+            'jenis_lapangan_id' => 'required',
             'tanggal'=> 'required',
             'waktu_mulai'=> 'required',
             'waktu_selesai'=> 'required',
@@ -69,7 +72,8 @@ class reservasiController extends Controller
 
 
         reservasi::create([
-            'hari'=> $request-> hari,
+            'jenis_lapangan_id' => $request->jenis_lapangan_id,
+            // 'hari'=> $request-> hari,
             'tanggal'=> $request-> tanggal,
             'waktu_mulai'=> $request-> waktu_mulai,
             'waktu_selesai'=> $request-> waktu_selesai,
@@ -77,8 +81,9 @@ class reservasiController extends Controller
             'penanggungjawab'=> $request-> penanggungjawab
         ]); 
 
+
         Session::flash('success', 'data berhasil ditambah !!!');
-        return redirect('jadwal_lapangan');
+        return redirect('/reservasi');
         
     }
 

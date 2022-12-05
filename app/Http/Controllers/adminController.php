@@ -27,7 +27,7 @@ class adminController extends Controller
         $reservasi = reservasi::all();
         $lapangan = lapangan::paginate(4);
         $jumlah_siswa = User::where('role','siswa')->count();
-        $detail_siswa = User::where('role','siswa')->get('name','email');
+        $detail_siswa = User::where('role','siswa')->get('email');
         return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa'));
         
     }
@@ -86,7 +86,8 @@ class adminController extends Controller
     public function show($id)
     {
         //
-        return view('admin.detail_siswa');
+        $reservasi = reservasi::all();
+        return view('admin.print', compact('reservasi'));
     }
 
     /**

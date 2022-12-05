@@ -8,24 +8,14 @@
         <div class="col">
             {{-- form lapangan --}}
             <form method="post" enctype="multipart/form-data" action="{{route('reservasi.store')}}">
+                @csrf
                 <div class="form-group">
                     <label for="nama_lapangan">Pilih Lapangan</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" 
+                    class=" form-control" id="jenis_lapangan_id" name="jenis_lapangan_id">
                         @foreach ($lapangan as $i => $item)
                             <option value="{{ $item->id }}">{{ $item->nama_lapangan }}</option>
                         @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="hari">Hari</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Pilih hari</option>
-                        <option value="1">Senin</option>
-                        <option value="2">Selasa</option>
-                        <option value="3">Rabu</option>
-                        <option value="3">Kamis</option>
-                        <option value="3">Jumat</option>
-                        <option value="3">Sabtu</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -35,12 +25,12 @@
                 </div>
                 <div class="form-group">
                     <label for="waktu_mulai">Waktu mulai</label>
-                    <input type="time" name="mulai" id="mulai" class="form-control" placeholder="waktu awal"
+                    <input type="time" name="waktu_mulai" id="waktu_mulai" class="form-control" placeholder="waktu awal"
                         aria-describedby="helpId">
                 </div>
                 <div class="form-group">
                     <label for="waktu_selesai">Waktu selesai</label>
-                    <input type="time" name="selesai" id="selesai" class="form-control" placeholder="waktu akhir"
+                    <input type="time" name="waktu_selesai" id="waktu_selesai" class="form-control" placeholder="waktu akhir"
                         aria-describedby="helpId">
                 </div>
                 <div class="form-group">
@@ -51,6 +41,11 @@
                 <div class="form-group">
                     <label for="penangunggjawab">Peminjam</label>
                     <input type="text" name="penanggungjawab" id="penanggungjawab" class="form-control" placeholder=""
+                        aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <label for="kode_booking">Peminjam</label>
+                    <input type="hidden" name="kode_booking" id="kode_booking" class="form-control" placeholder=""
                         aria-describedby="helpId">
                 </div>
                 <div class="form-group mt-3 text-center">

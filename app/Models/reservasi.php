@@ -9,7 +9,7 @@ class reservasi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'hari',
+        'jenis_lapangan_id',
         'tanggal',
         'waktu_mulai',
         'waktu_selesai',
@@ -17,4 +17,7 @@ class reservasi extends Model
         'penanggungjawab',
     ];
     protected $table = 'reservasi';
+    public function jenis_lapngan(){
+        return $this->belongsToMany('App\Models\lapangan', 'id');
+    }
 }

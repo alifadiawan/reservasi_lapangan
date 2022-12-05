@@ -1,23 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\adminController;
-use App\http\Controllers\siswaController;
-use App\http\Controllers\loginController;
-use App\http\Controllers\reservasiController;
-use App\http\Controllers\welcomeController;
-use App\http\Controllers\registerController;
-use App\http\Controllers\aksesController;
-use App\http\Controllers\lapanganController;
+use App\Http\Controllers\adminController;
+use App\Http\Controllers\siswaController;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\reservasiController;
+use App\Http\Controllers\welcomeController;
+use App\Http\Controllers\registerController;
+use App\Http\Controllers\aksesController;
+use App\Http\Controllers\lapanganController;
 
 
 // Route::resource('loginsiswa', loginsiswaController::class);
 // Route::resource('siswa', siswaController::class);
 // Route::resource('admin', adminController::class);
 // Route::resource('loginadmin', loginadminController::class);
-Route::resource('reservasi', reservasiController::class);
-Route::resource('welcome', welcomeController::class);
-Route::resource('akses', aksesController::class);
+
 // Route::resource('register', registerController::class);
 
 
@@ -42,11 +40,15 @@ route::middleware('guest')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-
+    Route::get('/antrian', function () {
+        return view('antrian');
+    });
+    
     Route::get('/login', [loginController::class, 'index'])->name('login');
-    Route::post('/login', [loginController::class, 'authenticate']);
-    Route::resource('register', registerController::class);
     Route::resource('reservasi', reservasiController::class);
+    Route::post('/login', [loginController::class, 'authenticate']);
+    Route::resource('/register', registerController::class);
+    Route::resource('/reservasi', reservasiController::class);
     Route::get('/jadwal_lapangan', reservasiController::class);
     Route::get('/tabel_reservasi', reservasiController::class);
 });

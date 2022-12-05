@@ -12,4 +12,8 @@ class lapangan extends Model
         'nama_lapangan'
     ];
     protected $table = 'lapangan';
+    public function reservasi(){
+        return $this->belongsTo('App\Models\reservasi', 'reservasi');
+    }
 }
+
