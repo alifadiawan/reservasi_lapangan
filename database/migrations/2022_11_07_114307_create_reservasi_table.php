@@ -17,14 +17,20 @@ return new class extends Migration
             $table->id();
             $table->BigInteger('jenis_lapangan_id')->unsigned();
             $table->foreign('jenis_lapangan_id')->references('id')->on('lapangan')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->BigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->date('tanggal');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->text('kegiatan');
-            $table->text('penanggungjawab'); 
-            $table->timestamps();      
+            $table->text('penanggungjawab');
+            $table->BigInteger('kode_booking')->nullable();
+            $table->text('tipe_pemesan')->nullable();
+            $table->timestamps();
         });
     }
 

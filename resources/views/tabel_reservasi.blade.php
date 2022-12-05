@@ -19,6 +19,10 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <input type="hidden" name="user_id" id="user_id" class="form-control" placeholder=""
+                        aria-describedby="helpId">
+                </div>
+                <div class="form-group">
                     <label for="tanggal">Tanggal</label>
                     <input type="date" name="tanggal" id="tanggal" class="form-control" placeholder="tanggal pinjam"
                         aria-describedby="helpId">
@@ -44,9 +48,12 @@
                         aria-describedby="helpId">
                 </div>
                 <div class="form-group">
-                    <label for="kode_booking">Peminjam</label>
+                    <input type="hidden" name="tipe_pemesan" id="tipe_pemesan" class="form-control" placeholder=""
+                        aria-describedby="helpId" value="pihak luar">
+                </div>
+                <div class="form-group">
                     <input type="hidden" name="kode_booking" id="kode_booking" class="form-control" placeholder=""
-                        aria-describedby="helpId">
+                        aria-describedby="helpId" value="">
                 </div>
                 <div class="form-group mt-3 text-center">
                     <input type="submit" class="btn btn-success" value="SUBMIT">

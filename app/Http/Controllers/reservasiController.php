@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use App\Models\reservasi;
@@ -46,6 +47,15 @@ class reservasiController extends Controller
         //
     }
 
+    public function KodeUnik()  //kodeunik
+    {
+        do {
+            $code = random_int(100000, 999999);
+        } while (reservasi::where("kode_booking", "=", $code)->first());
+  
+        return $code;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -70,22 +80,21 @@ class reservasiController extends Controller
             'penanggungjawab'=> 'required',
         ], $message );
 
-
         reservasi::create([
             'jenis_lapangan_id' => $request->jenis_lapangan_id,
-            // 'hari'=> $request-> hari,
             'tanggal'=> $request-> tanggal,
             'waktu_mulai'=> $request-> waktu_mulai,
             'waktu_selesai'=> $request-> waktu_selesai,
             'kegiatan'=> $request -> kegiatan ,
-            'penanggungjawab'=> $request-> penanggungjawab
+            'penanggungjawab'=> $request-> penanggungjawab,
+            'kode_booking' => $this->KodeUnik()
         ]); 
-
 
         Session::flash('success', 'data berhasil ditambah !!!');
         return redirect('/reservasi');
         
     }
+
 
     /**
      * Display the specified resource.

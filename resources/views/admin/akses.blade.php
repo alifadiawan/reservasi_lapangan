@@ -5,14 +5,34 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="row">
-                <div class="col mt-3">
+            <div class="row mt-3">
+                {{-- kembali ke dashboard --}}
+                <div class="col">
                     <a href="{{ route('admin.index') }}" class="btn btn-danger mb-3">
                         <i class="fa fa-chevron-left" aria-hidden="true"></i> Kembali ke Dashboard
                     </a>
                 </div>
+
+                {{-- serch bar --}}
+                <div class="col d-flex flex-row-reverse">
+
+                </div>
+
+                {{-- tombol search --}}
+                <div class="col d-flex flex-row-reverse">
+                    <div class="content">
+                        <a onclick="javascript:showDiv();" class="btn btn-dark">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <div class="input" id="search_bar">
+                        <input type="text">
+                    </div>
+                </div>
             </div>
-            <div class="col-4 mt-3">
+
+            <div class="col-3 mt-3">
+                {{-- card permintaan --}}
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         <h5>Permintaan dari</h5>
@@ -28,8 +48,7 @@
                             @foreach ($reservasi as $item)
                                 <tbody>
                                     <tr>
-                                        <th scope="row"></th>
-                                        <td>{{ $item->penanggungjawab }}</td>
+                                        <th scope="row">{{ $item->penanggungjawab }}</th>
                                         <td>
                                             <a onclick="show({{ $item->id }})" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-eye"></i>
@@ -42,13 +61,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8 mt-3">
+            <div class="col-9 mt-3">
+
+                {{-- tabel akses --}}
                 <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-striped-dark table-borderless text-white text-center">
                             <thead class="bg-dark">
                                 <tr>
                                     <th scope="col">No</th>
+                                    <th scope="col">Kode Booking</th>
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Mulai</th>
                                     <th scope="col">Selesai</th>
@@ -62,6 +84,7 @@
                                 @foreach ($reservasi as $i => $item)
                                     <tr>
                                         <th scope="row">{{ ++$i }}</th>
+                                        <td>{{ $item->kode_booking }}</td>
                                         <td>{{ $item->tanggal }}</td>
                                         <td>{{ $item->waktu_mulai }}</td>
                                         <td>{{ $item->waktu_selesai }}</td>
@@ -82,6 +105,7 @@
                         </table>
                     </div>
                 </div>
+
                 {{-- show reservasi --}}
                 <div class="card">
                     <div class="card shadow-mb-4">
@@ -100,11 +124,18 @@
     </div>
 
     <script>
+        //hide show dinamis request
         function show(id) {
             $.get('akses/' + id, function(data) {
                 $('#reservasi').html(data);
             })
 
+        }
+
+        //show search bar
+        function showDiv() {
+            div = document.getElementById('search_bar');
+            div.style.display = "block";
         }
     </script>
 
