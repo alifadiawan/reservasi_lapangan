@@ -24,10 +24,10 @@
                     <h5>Jumlah Permintaan</h5>
                 </div>
                 <div class="card-body">
-
+                    {{ $jumlah_permintaan }}
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('akses.index') }}">Lihat lebih detail</a>
+                    <a href="{{ route('status.index') }}">Lihat lebih detail</a>
                 </div>
             </div>
 
@@ -166,12 +166,33 @@
                                     <td>{{ $item->waktu_mulai }}</td>
                                     <td>{{ $item->waktu_selesai }}</td>
                                     <td>{{ $item->kegiatan }}</td>
-                                    <td>{{ $item->penanggungjawab }}</td>
-                                    <td></td>
+                                    <td>{{ $item->tipe_pemesan }}</td>
+                                    {{-- warna status --}}
+                                    @if ($item->status == 'Disetujui')
+                                        <td class="text-success">{{ $item->status }}</td>
+                                    @elseif ($item->status == 'Ditolak')
+                                        <td class="text-danger">{{ $item->status }}</td>
+                                    @else
+                                        <td class="text-warning">{{ $item->status }}</td>
+                                    @endif
+
+                                    {{-- tombol print --}}
+                                    @if ($item->status == 'Disetujui')
+                                        <td>
+                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
+                                                Print <i class="fa fa-print"></i>
+                                            </a>
+                                            <a href="{{route('admin.destroy',$item->id)}}" class="btn btn-danger">
+                                                Hapus <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    @elseif ($item->status == 'Ditolak')
+                                        <td class="text-danger">Pesanan anda DITOLAK !!!</td>
+                                    @else
+                                        <td class="text-warning">Pesanan masih menunggu</td>
+                                    @endif
                                     <td>
-                                        <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
-                                            <i class="fa fa-print"></i>
-                                        </a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -181,18 +202,6 @@
             </div>
 
         </div>
-    </div>
-
-
-    {{-- tabel dan modal fitur lapangan --}}
-    <div class="col-3 mt-4 mb-4">
-
-    </div>
-    <div class="col-9 mt-4 mb-4">
-
-    </div>
-    <div class="row justify-content-center">
-
     </div>
 
     <script>

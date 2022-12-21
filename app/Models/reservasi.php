@@ -16,10 +16,12 @@ class reservasi extends Model
         'waktu_selesai',
         'kegiatan',
         'kode_booking',
+        'tipe_pemesan',
         'penanggungjawab',
+        'status'
     ];
     protected $table = 'reservasi';
-    public function jenis_lapngan(){
+    public function jenis_lapangan(){
         return $this->belongsToMany('App\Models\lapangan', 'id');
     }
 }

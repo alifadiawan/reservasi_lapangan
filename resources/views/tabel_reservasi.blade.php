@@ -49,11 +49,15 @@
                 </div>
                 <div class="form-group">
                     <input type="hidden" name="tipe_pemesan" id="tipe_pemesan" class="form-control" placeholder=""
-                        aria-describedby="helpId" value="pihak luar">
+                        aria-describedby="helpId" value="{{'Pihak Luar'}}">
                 </div>
                 <div class="form-group">
                     <input type="hidden" name="kode_booking" id="kode_booking" class="form-control" placeholder=""
                         aria-describedby="helpId" value="">
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="status" id="status" class="form-control" placeholder=""
+                        aria-describedby="helpId" value="{{'Menunggu'}}">
                 </div>
                 <div class="form-group mt-3 text-center">
                     <input type="submit" class="btn btn-success" value="SUBMIT">

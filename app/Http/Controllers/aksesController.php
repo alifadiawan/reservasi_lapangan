@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lapangan;
-use App\Models\reservasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+
+use App\Models\reservasi;
+use App\Models\lapangan;
 
 class aksesController extends Controller
 {
@@ -15,9 +18,10 @@ class aksesController extends Controller
      */
     public function index()
     {
+        //
         $reservasi = reservasi::all();
         $lapangan = lapangan::all();
-        return view('admin.akses', compact('reservasi'));
+        return view('admin.akses', compact('reservasi', 'lapangan'));
     }
 
     /**
@@ -49,8 +53,9 @@ class aksesController extends Controller
      */
     public function show($id)
     {
-        $reservasi=reservasi::find($id);
-        return view ('ShowSiswa', compact('resevasi', 'lapangan'));
+        $reservasi = reservasi::find($id)->reservasi()->get();
+        $lapangan = reservasi::find($id);
+        return view('admin.akses', compact('reservasi'));
     }
 
     /**

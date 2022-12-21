@@ -2,9 +2,8 @@
     <h6>Belum memilih Pesanan</h6>
 @else
     
-<h5>terpilih</h5>
-
-{{-- <div class="card">
+@foreach ($reservasi as $i => $item)
+<div class="card">
         <div class="card-body p-0">
             <table class="table table-striped-dark table-borderless text-white text-center">
                 <thead class="bg-dark">
@@ -20,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-dark">
-                    @foreach ($reservasi as $i => $item)
+
                         <tr>
                             <th scope="row">{{ ++$i }}</th>
                             <td>{{ $item->tanggal }}</td>
@@ -38,9 +37,10 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    
                 </tbody>
             </table>
         </div>
-    </div> --}}
+    </div>
+    @endforeach
 @endif

@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\file;
 
-use App\Models\reservasi;
-use App\Models\lapangan;
+use App\Models\Reservasi;
+use App\Models\Lapangan;
 
 class welcomeController extends Controller
 {

@@ -7,30 +7,47 @@ use App\Models\lapangan;
 use App\Models\reservasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class loginController extends Controller
 {
-    public function index(){
-        return view ('login');
+    public function index()
+    {
+        return view('login');
     }
 
-    public function authenticate(Request $request){
-        $data=$request->validate([
+    public function authenticate(Request $request)
+    {
+        $data = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
+        // if (Auth::user()-> role == 'admin') {
+        //     return redirect(route('admin.index'));  // admin dashboard path
+        // } else {
+        //     return redirect(route('siswa.index'));  // siswa dashboard path
+        // }
+
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
- 
-            return redirect()->intended(route('admin.index'));
+
+            if(Auth::user()->role == 'admin') {
+                return redirect()->intended('/admin');
+            } else{
+                return redirect()->intended('/siswa');
+            }
         }
+            
+        
+
         Session::flash('danger', 'login anda gagal');
         return back()->withErrors('loginerror', 'Login anda gagal');
     }
-    
 
-    public function logout(Request $request){
+
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

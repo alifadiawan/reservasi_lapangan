@@ -25,11 +25,11 @@ class adminController extends Controller
     public function index()
     {
         $reservasi = reservasi::all();
+        $jumlah_permintaan = reservasi::where('status','Menunggu')->count();
         $lapangan = lapangan::paginate(4);
         $jumlah_siswa = User::where('role','siswa')->count();
         $detail_siswa = User::where('role','siswa')->get('email');
-        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa'));
-        
+        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa' , 'jumlah_permintaan'));
     }
 
     /**
@@ -86,8 +86,9 @@ class adminController extends Controller
     public function show($id)
     {
         //
-        $reservasi = reservasi::all();
-        return view('admin.print', compact('reservasi'));
+        $reservasi = reservasi::find($id);
+        $lapangan = lapangan::find($id);
+        return view('admin.print', compact('reservasi','lapangan'));
     }
 
     /**
@@ -121,7 +122,9 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reservasi = reservasi::find($id);
+        $reservasi->delete();
+        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa' , 'jumlah_permintaan'));
     }
 
     public function hapus($id){
@@ -129,6 +132,11 @@ class adminController extends Controller
         $lapangan->delete();
         Session::flash('delete', $lapangan->nama_lapangan);
         return redirect(route('admin.index'));   
+    }
+
+    public function hapus_reservasi($id)
+    {
+        
     }
 
 }

@@ -25,9 +25,9 @@ class reservasiController extends Controller
     public function index()
     {
         //
-        $data = reservasi::all();
+        $reservasi = reservasi::all();
         $lapangan = lapangan::all();
-        return view ('jadwal_lapangan' , compact('data', 'lapangan'));
+        return view ('jadwal_lapangan' , compact('reservasi', 'lapangan'));
     }
 
     
@@ -47,7 +47,7 @@ class reservasiController extends Controller
         //
     }
 
-    public function KodeUnik()  //kodeunik
+    public function KodeUnik() 
     {
         do {
             $code = random_int(100000, 999999);
@@ -82,11 +82,17 @@ class reservasiController extends Controller
 
         reservasi::create([
             'jenis_lapangan_id' => $request->jenis_lapangan_id,
+
+            //user yang sedang login 
+            'user_id'=> $request->user(),
+
             'tanggal'=> $request-> tanggal,
             'waktu_mulai'=> $request-> waktu_mulai,
             'waktu_selesai'=> $request-> waktu_selesai,
             'kegiatan'=> $request -> kegiatan ,
             'penanggungjawab'=> $request-> penanggungjawab,
+            'tipe_pemesan'=> $request-> tipe_pemesan,
+            'status'=> $request-> status,
             'kode_booking' => $this->KodeUnik()
         ]); 
 
@@ -113,9 +119,11 @@ class reservasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($kode_booking)
     {
         //
+        $reservasi = reservasi::find($kode_booking);
+        return view('admin.status' , compact('reservasi'));
     }
 
     /**

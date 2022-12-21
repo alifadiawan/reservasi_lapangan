@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\file;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
 
-class siswaController extends Controller
+class statusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        $reservasi = reservasi::all();
+        //
+        $reservasi = reservasi::where('status','menunggu')->get();
         $lapangan = lapangan::all();
-        return view ('siswa.dashboard_siswa' , compact('reservasi', 'lapangan'));
+        return view('admin.status', compact('reservasi', 'lapangan'));
     }
 
     /**
@@ -31,8 +31,7 @@ class siswaController extends Controller
      */
     public function create()
     {
-        $lapangan = lapangan::all();
-        return view('siswa.reservasi_siswa', compact('lapangan')); 
+        //
     }
 
     /**
@@ -44,35 +43,6 @@ class siswaController extends Controller
     public function store(Request $request)
     {
         //
-        $message = [
-            'required' => ':attribute harus diisi ',
-            'min' => ':attribute minimal :min karakter ya ',
-            'max' => 'attribute makasimal :max karakter '
-        ];
-
-        $this->validate($request,[
-            'jenis_lapangan_id' => 'required',
-            'tanggal'=> 'required',
-            'waktu_mulai'=> 'required',
-            'waktu_selesai'=> 'required',
-            'kegiatan'=> 'required',
-            'penanggungjawab'=> 'required',
-        ], $message );
-
-        reservasi::create([
-            'jenis_lapangan_id' => $request->jenis_lapangan_id,
-            'tanggal'=> $request-> tanggal,
-            'waktu_mulai'=> $request-> waktu_mulai,
-            'waktu_selesai'=> $request-> waktu_selesai,
-            'kegiatan'=> $request -> kegiatan ,
-            'penanggungjawab'=> $request-> penanggungjawab,
-            'tipe_pemesan'=> $request-> tipe_pemesan,
-            'status'=> $request-> status,
-            'kode_booking' => $this->KodeUnik()
-        ]); 
-
-        Session::flash('success', 'data berhasil ditambah !!!');
-        return redirect('/siswa');
     }
 
     /**
@@ -94,7 +64,9 @@ class siswaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $reservasi = reservasi::find($id);
+        $lapangan = lapangan::find($id);
+        return view('admin.akses', compact('reservasi', 'lapangan'));
     }
 
     /**
@@ -106,7 +78,13 @@ class siswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $reservasi = reservasi::find($id);
+        $reservasi->status = $request->status;
+        $reservasi->save();  
+
+        $lapangan = lapangan::all();
+        return route('admin.index');
     }
 
     /**

@@ -5,20 +5,20 @@
 
 
     <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="col-12 col-md-8 ">
             <div class="card shadow-2-strong text-white" style="border-radius: 1rem; background-color:#191919;">
                 <div class="card-body p-5">
 
                     {{-- back button --}}
                     <div id="not_print">
-                        <a href="{{route('admin.index')}}"" class="btn btn-danger mb-3">
+                        <a href="{{ route('admin.index') }}"" class="btn btn-danger mb-3">
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                         </a>
                     </div>
 
                     {{-- printable --}}
                     <table class="table table-borderless text-center">
-                        <thead class="text-center">
+                        <thead class="text-center text-white">
                             <tr>
                                 <th>Nama</th>
                                 <th>Tanggal</th>
@@ -27,13 +27,15 @@
                                 <th>Waktu Selesai</th>
                             </tr>
                         </thead>
-                        {{-- @foreach ($reservasi as $item) --}}
-                        <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+
+                        <tbody class="text-white">
+                                <tr>
+                                    <td>{{$reservasi->penanggungjawab}}</td>
+                                    <td>{{$reservasi->tanggal}}</td>
+                                    <td>{{$reservasi->waktu_mulai}}</td>
+                                    <td>{{$reservasi->waktu_selesai}}</td>
+                                </tr>
                         </tbody>
-                        {{-- @endforeach --}}
                     </table>
 
 
