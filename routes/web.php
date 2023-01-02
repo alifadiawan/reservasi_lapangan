@@ -66,7 +66,7 @@ route::middleware('auth')->group(function ()  {
     //nambah route function
     Route::get('admin/tambah', [adminController::class, 'tambah'])->name('admin.tambah');
     Route::get('admin/{id}/hapus', [adminController::class, 'hapus'])->name('admin.hapus');
-    Route::get('admin/{id}/hapus_reservasi', [adminController::class, 'hapus'])->name('admin.hapusreservasi');
+    Route::get('admin/{id}/hapusreservasi', [adminController::class, 'hapus'])->name('admin.hapusreservasi');
     Route::post('logout', [loginController::class, 'logout']);
 });
 

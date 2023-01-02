@@ -35,6 +35,15 @@ class siswaController extends Controller
         return view('siswa.reservasi_siswa', compact('lapangan')); 
     }
 
+    public function KodeUnik() 
+    {
+        do {
+            $code = random_int(100000, 999999);
+        } while (reservasi::where("kode_booking", "=", $code)->first());
+  
+        return $code;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

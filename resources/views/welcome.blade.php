@@ -1,6 +1,6 @@
 @extends('layout.bodyall')
-@section('judul_tab', 'Dashboard')
-@section('judul_navbar', 'LAPANGAN')
+@section('judul_tab')
+@section('judul_navbar')
 @section('content')
 
     <div class="row">

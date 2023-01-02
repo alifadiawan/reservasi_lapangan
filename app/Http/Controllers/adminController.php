@@ -122,9 +122,9 @@ class adminController extends Controller
      */
     public function destroy($id)
     {
-        $reservasi = reservasi::find($id);
-        $reservasi->delete();
-        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa' , 'jumlah_permintaan'));
+        // $reservasi = reservasi::find($id);
+        // $reservasi->delete();
+        // return redirect(route('admin.index'));   
     }
 
     public function hapus($id){
@@ -134,9 +134,11 @@ class adminController extends Controller
         return redirect(route('admin.index'));   
     }
 
-    public function hapus_reservasi($id)
+    public function hapusreservasi($id)
     {
-        
+        $reservasi = reservasi::find($id);
+        $reservasi->delete();
+        return redirect(route('admin.index')); 
     }
 
 }

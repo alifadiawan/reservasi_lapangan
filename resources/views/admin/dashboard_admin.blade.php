@@ -155,7 +155,7 @@
                                 <th scope="col-lg">kegiatan</th>
                                 <th scope="col">Peminjam</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">ACTION</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-dark">
@@ -167,29 +167,50 @@
                                     <td>{{ $item->waktu_selesai }}</td>
                                     <td>{{ $item->kegiatan }}</td>
                                     <td>{{ $item->tipe_pemesan }}</td>
-                                    {{-- warna status --}}
+                                    
+                                    {{-- status dan tombol2 --}}
                                     @if ($item->status == 'Disetujui')
-                                        <td class="text-success">{{ $item->status }}</td>
-                                    @elseif ($item->status == 'Ditolak')
-                                        <td class="text-danger">{{ $item->status }}</td>
-                                    @else
-                                        <td class="text-warning">{{ $item->status }}</td>
-                                    @endif
-
-                                    {{-- tombol print --}}
-                                    @if ($item->status == 'Disetujui')
+                                        <td class="text-success">Pesanan anda DITERIMA !!!</td>
                                         <td>
-                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
-                                                Print <i class="fa fa-print"></i>
-                                            </a>
-                                            <a href="{{route('admin.destroy',$item->id)}}" class="btn btn-danger">
-                                                Hapus <i class="fa fa-trash"></i>
-                                            </a>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('admin.show', $item->id) }}"
+                                                    class="btn btn-success">
+                                                    <i class="fa fa-print"></i>
+                                                </a>
+                                                <a href="{{ route('admin.hapusreservasi', $item->id) }}"
+                                                    class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     @elseif ($item->status == 'Ditolak')
                                         <td class="text-danger">Pesanan anda DITOLAK !!!</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('admin.show', $item->id) }}"
+                                                    class="disabled btn btn-secondary">
+                                                    <i class="fa fa-print"></i>
+                                                </a>
+                                                <a href="{{ route('admin.hapusreservasi', $item->id) }}"
+                                                    class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
                                     @else
                                         <td class="text-warning">Pesanan masih menunggu</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('admin.show', $item->id) }}"
+                                                    class="disabled btn btn-secondary">
+                                                    <i class="fa fa-print"></i>
+                                                </a>
+                                                <a href="{{ route('admin.hapusreservasi', $item->id) }}"
+                                                    class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
                                     @endif
                                     <td>
 
@@ -203,6 +224,14 @@
 
         </div>
     </div>
+
+    {{-- <style>
+        .disabled {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style> --}}
+
 
     <script>
         $('.print-window').click(function() {

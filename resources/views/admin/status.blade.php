@@ -13,11 +13,6 @@
                     </a>
                 </div>
 
-                {{-- serch bar --}}
-                <div class="col d-flex flex-row-reverse">
-
-                </div>
-
                 {{-- search bar --}}
                 <div class="col d-flex flex-row-reverse">
                     <div class="content">
@@ -33,8 +28,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-6 mt-3">
+            <div class="col mt-3">
                 {{-- card permintaan --}}
                 <div class="card">
                     <div class="card-body">
@@ -49,26 +43,27 @@
                             @foreach ($reservasi as $item)
                                 <tbody>
                                     <tr>
-                                        <th scope="row">{{ $item->penanggungjawab }}</th>
-                                        <th scope="row">{{ $item->tanggal }}</th>
+                                        <td scope="row">{{ $item->penanggungjawab }}</td>
+                                        <td scope="row">{{ $item->tanggal }}</td>
 
                                         <td>
-                                            <a class="btn btn-sm btn-dark" href="{{route('status.edit', $item -> id )}}"><i class="fa fa-eye"></i></a>
+                                            <a class="btn btn-sm btn-dark" href="{{ route('status.edit', $item->id) }}"><i
+                                                    class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             @endforeach
                         </table>
                     </div>
-                    {{-- <div class="card-footer d-flex justify-content-center">
-                        {{ $reservasi->links() }}
-                    </div> --}}
                 </div>
             </div>
+
+
+
             {{-- <div class="col-9 mt-3"> --}}
 
-                {{-- tabel akses --}}
-                {{-- <div class="card">
+            {{-- tabel akses --}}
+            {{-- <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-striped-dark table-borderless text-white text-center">
                             <thead class="bg-dark">
@@ -112,17 +107,17 @@
                     </div>
                 </div> --}}
 
-                
-
-    <script>
-        //hide show dinamis request
-        function show(id) {
-            $.get('status/' + id, function(data) {
-                $('#reservasi').html(data);
-            })
-
-        }
-    </script>
 
 
-@endsection
+            <script>
+                //hide show dinamis request
+                function show(id) {
+                    $.get('status/' + id, function(data) {
+                        $('#reservasi').html(data);
+                    })
+
+                }
+            </script>
+
+
+        @endsection

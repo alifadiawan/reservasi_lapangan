@@ -3,7 +3,7 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-<form method="post" enctype="multipart/form-data" action="{{ route('reservasi.store') }}">
+<form method="post" enctype="multipart/form-data" action="{{ route('siswa.store') }}">
     @csrf
     <div class="form-group">
         <label for="nama_lapangan">Pilih Lapangan</label>
@@ -40,7 +40,7 @@
     </div>
     <div class="form-group">
         <input type="hidden" name="penanggungjawab" id="penanggungjawab" class="form-control"
-            placeholder="" aria-describedby="helpId" value="{{auth()->user()->name}}">
+            placeholder="" aria-describedby="helpId" value="{{$id = Auth::user()->name}}">
     </div>
     <div class="form-group">
         <input type="hidden" name="tipe_pemesan" id="tipe_pemesan" class="form-control"
