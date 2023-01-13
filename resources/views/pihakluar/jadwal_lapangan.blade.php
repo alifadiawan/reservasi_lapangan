@@ -24,23 +24,29 @@
                 </thead>
                 @foreach ($reservasi as $i => $item)
                     <tr>
-                        <th scope="row">{{ ++$i }}</th>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ $item->waktu_mulai }}</td>
-                        <td>{{ $item->waktu_selesai }}</td>
-                        <td>{{ $item->kegiatan }}</td>
-                        <td>{{ $item->penanggungjawab }}</td>
                         @if ($item->status == 'Disetujui')
-                            <td class="text-success">{{ $item->status }}</td>
+                            <th scope="row">{{ ++$i }}</th>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->waktu_mulai }}</td>
+                            <td>{{ $item->waktu_selesai }}</td>
+                            <td>{{ $item->kegiatan }}</td>
+                            <td>{{ $item->penanggungjawab }}</td>
+                            <td class="text-success">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </td>
                             <td>
-                              <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
+                                <a href="{{ route('admin.show', $item->id) }}" class="btn btn-outline-success">
                                     Print <i class="fa fa-print"></i>
-                              </a>
+                                </a>
                             </td>
                         @elseif ($item->status == 'Ditolak')
-                            <td class="text-danger"><a href="">{{ $item->status }}</a></td>
+                            {{-- <td class="text-danger">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </td> --}}
                         @else
-                            <td class="text-warning">{{ $item->status }}</td>
+                            {{-- <td class="text-warning">
+                                <i class="fa-solid fa-clock"></i>
+                            </td> --}}  
                         @endif
                     </tr>
                 @endforeach

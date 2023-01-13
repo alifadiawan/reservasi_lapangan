@@ -15,7 +15,7 @@
                     class=" form-control" id="jenis_lapangan_id" name="jenis_lapangan_id">
                         @foreach ($lapangan as $i => $item)
                             <option value="{{ $item->id }}">{{ $item->nama_lapangan }}</option>
-                        @endforeach
+                        @endforeach 
                     </select>
                 </div>
                 <div class="form-group">

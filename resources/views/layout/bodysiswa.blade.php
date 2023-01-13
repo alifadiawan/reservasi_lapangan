@@ -25,9 +25,13 @@
   </section> --}}
     <!-- End Hero -->
 
-    <div class="container">
-        @yield('konten')
-    </div>
+
+{{-- konten --}}
+<div class="container">
+  @yield('konten')  
+</div>
+    
+
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\file;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
+use Illuminate\Support\Facades\Auth;
 
 class siswaController extends Controller
 {
@@ -19,7 +20,9 @@ class siswaController extends Controller
 
     public function index()
     {
-        $reservasi = reservasi::all();
+
+        $user_id = Auth::user()->name;
+        $reservasi = reservasi::all()->sortBy('created_at');
         $lapangan = lapangan::all();
         return view ('siswa.dashboard_siswa' , compact('reservasi', 'lapangan'));
     }
@@ -80,7 +83,7 @@ class siswaController extends Controller
             'kode_booking' => $this->KodeUnik()
         ]); 
 
-        Session::flash('success', 'data berhasil ditambah !!!');
+        Session::flash('success');
         return redirect('/siswa');
     }
 
@@ -92,7 +95,23 @@ class siswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservasi = reservasi::find($id);
+        $nama_lapangan = lapangan::find($id);
+        return view('siswa.printsiswa', compact('reservasi','nama_lapangan'));
+    }
+
+    public function print($id)
+    {
+        $reservasi = reservasi::find($id);
+        $nama_lapangan = lapangan::find($id);
+        return view('siswa.printsiswa', compact('reservasi','nama_lapangan'));
+    }
+
+    public function profile($id)
+    {
+        $reservasi = reservasi::find($id);
+        $lapangan = lapangan::find($id);
+        return view('siswa.profile', compact('reservasi','lapangan'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class reservasi extends Model
 {
@@ -24,4 +25,6 @@ class reservasi extends Model
     public function jenis_lapangan(){
         return $this->belongsToMany('App\Models\lapangan', 'id');
     }
+
+    public $sortable = ['id', 'created_at', 'status', 'user_id'];
 }

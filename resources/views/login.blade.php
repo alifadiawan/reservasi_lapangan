@@ -11,7 +11,6 @@
 
                     {{-- error message --}}
                     @if ($message = Session::get('danger'))
-                        
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

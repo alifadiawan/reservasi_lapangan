@@ -31,6 +31,7 @@ return new class extends Migration
             $table->BigInteger('kode_booking')->nullable();
             $table->text('tipe_pemesan')->nullable();
             $table->text('status')->nullable();
+            $table->text('alasan')->nullable();
             $table->timestamps();
         });
     }

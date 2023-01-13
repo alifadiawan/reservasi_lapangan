@@ -24,9 +24,9 @@ class adminController extends Controller
 
     public function index()
     {
-        $reservasi = reservasi::all();
+        $reservasi = reservasi::all()->sortBy('created_at');
         $jumlah_permintaan = reservasi::where('status','Menunggu')->count();
-        $lapangan = lapangan::paginate(4);
+        $lapangan = lapangan::all();
         $jumlah_siswa = User::where('role','siswa')->count();
         $detail_siswa = User::where('role','siswa')->get('email');
         return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa' , 'jumlah_permintaan'));
@@ -136,9 +136,8 @@ class adminController extends Controller
 
     public function hapusreservasi($id)
     {
-        $reservasi = reservasi::find($id);
-        $reservasi->delete();
-        return redirect(route('admin.index')); 
+        $reservasi = reservasi::find($id)->delete();
+        return redirect('/admin'); 
     }
 
 }

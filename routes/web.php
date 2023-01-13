@@ -32,9 +32,12 @@ use App\Http\Controllers\statusController;
 |
 */
 
+// print all
 
 
 
+
+//siswa
 route::middleware('guest')->group(function () {
     //welcome page
     Route::get('/', function () {
@@ -42,7 +45,7 @@ route::middleware('guest')->group(function () {
     });
     Route::get('/antrian', function () {
         return view('antrian');
-    });
+    }); 
 
     Route::get('/login', [loginController::class, 'index'])->name('login');
     Route::resource('reservasi', reservasiController::class);
@@ -54,6 +57,7 @@ route::middleware('guest')->group(function () {
 });
 
 
+//admin
 route::middleware('auth')->group(function ()  {
     //siswa
     Route::resource('siswa', siswaController::class);
@@ -65,9 +69,12 @@ route::middleware('auth')->group(function ()  {
 
     //nambah route function
     Route::get('admin/tambah', [adminController::class, 'tambah'])->name('admin.tambah');
+    route::get('ooo',[siswaController::class, 'ooo']);
     Route::get('admin/{id}/hapus', [adminController::class, 'hapus'])->name('admin.hapus');
+    Route::get('reservasi/{id}/hapus', [reservasiController::class, 'hapus'])->name('reservasi.hapus');
     Route::get('admin/{id}/hapusreservasi', [adminController::class, 'hapus'])->name('admin.hapusreservasi');
     Route::post('logout', [loginController::class, 'logout']);
+    Route::get('print', [reservasiController::class]);
 });
 
 

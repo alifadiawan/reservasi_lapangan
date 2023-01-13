@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\lapangan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => ('123456'),
             'role' => 'admin'
+        ]);
+
+        lapangan::create([
+            'nama_lapangan' => 'Lapangan Indoor'
+        ]);
+
+        lapangan::create([
+            'nama_lapangan' => 'Lapangan Outdoor'
         ]);
     }
 }

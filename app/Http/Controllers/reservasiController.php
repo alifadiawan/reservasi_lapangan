@@ -27,7 +27,7 @@ class reservasiController extends Controller
         //
         $reservasi = reservasi::all();
         $lapangan = lapangan::all();
-        return view ('jadwal_lapangan' , compact('reservasi', 'lapangan'));
+        return view ('pihakluar.jadwal_lapangan' , compact('reservasi', 'lapangan'));
     }
 
     
@@ -39,7 +39,7 @@ class reservasiController extends Controller
     public function create()
     {
         $lapangan = lapangan::all();
-        return view('tabel_reservasi', compact('lapangan'));
+        return view('pihakluar.tabel_reservasi', compact('lapangan'));
     }
 
     public function tambah()
@@ -54,6 +54,13 @@ class reservasiController extends Controller
         } while (reservasi::where("kode_booking", "=", $code)->first());
   
         return $code;
+    }
+
+    public function print($id)
+    {
+        $reservasi = reservasi::find($id);
+        $nama_lapangan = lapangan::find($id);
+        return view('siswa.printsiswa', compact('reservasi','nama_lapangan'));
     }
 
     /**
@@ -147,5 +154,12 @@ class reservasiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function hapus($id)
+    {
+        $reservasi = reservasi::find($id)->delete();
+        session::flash('hapus_reservasi', );
+        return redirect('/admin');
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
+use App\Models\User;
 
 class statusController extends Controller
 {
@@ -81,10 +82,19 @@ class statusController extends Controller
 
         $reservasi = reservasi::find($id);
         $reservasi->status = $request->status;
+        $reservasi->alasan = $request->alasan;
         $reservasi->save();  
 
-        $lapangan = lapangan::all();
-        return route('admin.index');
+
+
+        // $lapangan = lapangan::all();
+        // $reservasi = reservasi::all();
+        // $jumlah_permintaan = reservasi::where('status','Menunggu')->count();
+        // $lapangan = lapangan::paginate(4);
+        // $jumlah_siswa = User::where('role','siswa')->count();
+        // $detail_siswa = User::where('role','siswa')->get('email');
+        Session::flash('setujui', auth()->user()->name);
+        return redirect('/admin');
     }
 
     /**

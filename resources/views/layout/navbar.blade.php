@@ -4,7 +4,7 @@
       @if (Auth::user()->role == 'admin')
           <h1 class="logo"><a href="{{route('admin.index')}}">ADMIN | @yield('judul_navbar')</a></h1>
       @else
-          <h1 class="logo"><a href="{{route('siswa.index')}}">{{auth()->user()->name}} | @yield('judul_navbar')</a></h1>
+          <h1 class="logo"><a href="  ">{{auth()->user()->name}} | @yield('judul_navbar')</a></h1>  
       @endif
       <nav id="navbar" class="navbar">
         <ul>

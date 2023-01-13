@@ -15,5 +15,9 @@ class lapangan extends Model
     public function reservasi(){
         return $this->belongsTo('App\Models\reservasi', 'reservasi');
     }
+
+    protected $casts = [
+        'created_at' => 'date:d-m-Y',
+    ];
 }
 
