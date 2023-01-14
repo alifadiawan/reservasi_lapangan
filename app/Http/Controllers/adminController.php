@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\reservasi;
 use App\Models\lapangan;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class adminController extends Controller
 {
@@ -18,18 +19,19 @@ class adminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
-      }
+    }
 
     public function index()
     {
-        $reservasi = reservasi::all()->sortBy('created_at');
-        $jumlah_permintaan = reservasi::where('status','Menunggu')->count();
+        $reservasi = reservasi::paginate(6);
+        $jumlah_permintaan = reservasi::where('status', 'Menunggu')->count();
         $lapangan = lapangan::all();
-        $jumlah_siswa = User::where('role','siswa')->count();
-        $detail_siswa = User::where('role','siswa')->get('email');
-        return view ('admin.dashboard_admin' , compact('reservasi' , 'lapangan', 'jumlah_siswa', 'detail_siswa' , 'jumlah_permintaan'));
+        $jumlah_siswa = User::where('role', 'siswa')->count();
+        $detail_siswa = User::where('role', 'siswa')->get('email');
+        return view('admin.dashboard_admin', compact('reservasi', 'lapangan', 'jumlah_siswa', 'detail_siswa', 'jumlah_permintaan'));
     }
 
     /**
@@ -40,7 +42,7 @@ class adminController extends Controller
     public function create()
     {
         //
-        return view( ('admin.tambah_fitur'));
+        return view(('admin.tambah_fitur'));
     }
 
     public function tambah()
@@ -56,25 +58,40 @@ class adminController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $message = [
             'required' => ':attribute harus diisi ',
             'min' => ':attribute minimal :min karakter ya ',
             'max' => 'attribute makasimal :max karakter ',
-            'foto'=> 'required|mimes:jpg,bmp,png,jpeg',
+            'foto' => 'required|mimes:jpg,bmp,png,jpeg',
         ];
 
-        $this->validate($request,[
-            'nama_lapangan'=> 'required',
-        ], $message );
+        $this->validate($request, [
+            'nama_lapangan' => 'required',
+        ], $message);
 
         lapangan::create([
-            'nama_lapangan'=> $request-> nama_lapangan,
-        ]); 
+            'nama_lapangan' => $request->nama_lapangan,
+        ]);
 
 
-        Session::flash('success', $request-> nama_lapangan);
+        Session::flash('success', $request->nama_lapangan);
         return redirect(route('admin.index'));
+    }
+
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $reservasicari = $request->cari;
+
+        // mengambil data dari table pegawai sesuai pencarian data
+        $reservasicari = DB::table('reservasi')
+            ->where('kode_booking', 'like', "%" . $reservasicari . "%")
+            ->orWhere('penanggungjawab', 'like', '%' . $reservasicari . '%')
+            ->paginate();
+
+        // mengirim data pegawai ke view index
+        $reservasi = reservasi::paginate(5);
+        return view('admin.hasil',['reservasi' => $reservasicari] , compact('reservasi'));    
     }
 
     /**
@@ -88,7 +105,14 @@ class adminController extends Controller
         //
         $reservasi = reservasi::find($id);
         $lapangan = lapangan::find($id);
-        return view('admin.print', compact('reservasi','lapangan'));
+        return view('admin.print', compact('reservasi', 'lapangan'));
+    }
+
+    public function konfirmasi($id)
+    {
+        $reservasi = reservasi::find($id);
+        $lapangan = lapangan::find($id);
+        return view('admin.akses', compact('reservasi', 'lapangan'));
     }
 
     /**
@@ -127,17 +151,17 @@ class adminController extends Controller
         // return redirect(route('admin.index'));   
     }
 
-    public function hapus($id){
+    public function hapus($id)
+    {
         $lapangan = lapangan::find($id);
         $lapangan->delete();
         Session::flash('delete', $lapangan->nama_lapangan);
-        return redirect(route('admin.index'));   
+        return redirect(route('admin.index'));
     }
 
     public function hapusreservasi($id)
     {
         $reservasi = reservasi::find($id)->delete();
-        return redirect('/admin'); 
+        return redirect('/admin');
     }
-
 }

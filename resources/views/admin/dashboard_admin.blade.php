@@ -3,34 +3,57 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-    {{-- alert message --}}
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block mt-3">
-            <strong>{{ $message }} berhasil di tambahkan</strong>
-        </div>
-    @endif
-    @if ($message = Session::get('delete'))
-        <div class="alert alert-danger alert-block mt-3">
-            <strong> {{ $message }} berhasil di hapus</strong>
-        </div>
-    @endif
-    @if ($message = Session::get('setujui'))
-        <div class="alert alert-success alert-block mt-3">
-            <strong>Reservasi Milik {{ $message }} berhasil di Disetujui</strong>
-        </div>
-    @endif
-    @if ($message = Session::get('hapus_reservasi'))
-        <div class="alert alert-success">
-            <strong>Reservasi milik {{ $message }} telah dihapus</strong>
-        </div>
-    @endif
-
 
     {{-- card row --}}
     <div class="row">
-        <div class="col">
 
-            {{-- jumlah siswa yg terdaftar --}}
+        {{-- search bar --}}
+        <div class="row">
+            <div class="container mt-3">
+                <div class="row justify-content-end">
+                    <div class="col">
+                        {{-- alert message --}}
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-block mt-3">
+                                <strong>{{ $message }} berhasil di tambahkan</strong>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('delete'))
+                            <div class="alert alert-danger alert-block mt-3">
+                                <strong> {{ $message }} berhasil di hapus</strong>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('hapus_reservasi'))
+                            <div class="alert alert-success">
+                                <strong>Reservasi milik {{ $message }} telah dihapus</strong>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('setujui'))
+                            <div class="alert alert-success alert-block mt-3">
+                                <p>Reservasi milik <strong>{{ $message }}</strong> berhasil diTOLAK</p>
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- search bar --}}
+                    <div class="content w-25">
+                        <form action="{{ route('cari') }}" method="GET">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control bg-light" placeholder="Search"
+                                    aria-describedby="button-addon2" id="cari" name="cari"
+                                    value="{{ old('cari') }}">
+                                <button class="btn btn-outline-danger" type="submit" id="button-addon2">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- jumlah siswa yg terdaftar --}}
+        <div class="col">
             <div class="card mt-3">
                 <div class="card-header bg-dark text-white">
                     <h5>Jumlah Siswa yang terdaftar</h5>
@@ -126,7 +149,7 @@
                                         <div class="form-group">
                                             <label for="">TAMBAH LAPANGAN</label>
                                             <input type="text" name="nama_lapangan" id="nama_lapangan"
-                                                class="form-control" placeholder="" aria-describedby="helpId" re>
+                                                class="form-control" placeholder="" aria-describedby="helpId">
                                         </div>
                                 </div>
                                 <div class="modal-footer">
@@ -145,12 +168,12 @@
         {{-- daftar reservasi lapangan --}}
         <div class="col-lg-9">
             <div class="card mt-3">
-                <div class="card-header p-0">
-                    <table class="table table-bordered text-white text-center">
+                <div class="card-header p-0 m-0">
+                    <table class="table table-borderless text-white text-center">
                         <thead class="bg-dark">
                             <tr>
-                                <th scope="col">@sortablelink('created_at', 'No')</th>
-                                <th scope="col">Waktu Reservasi (yyy-mm-dd)</th>
+                                <th scope="col">@sortablelink('kode_booking', 'No')</th>
+                                <th scope="col">Waktu Reservasi</th>
                                 <th scope="col">Dari Jam</th>
                                 <th scope="col">Sampai Jam</th>
                                 <th scope="col-lg">kegiatan</th>
@@ -171,12 +194,12 @@
 
                             @foreach ($reservasi as $i => $item)
                                 <tr>
-                                    <th scope="row">{{ $item->id }}</th>
+                                    <th scope="row">{{ $item->kode_booking }}</th>
                                     <td>{{ $item->tanggal }}</td>
                                     <td>{{ $item->waktu_mulai }}</td>
                                     <td>{{ $item->waktu_selesai }}</td>
                                     <td>{{ $item->kegiatan }}</td>
-                                    <td>{{ $item->tipe_pemesan }}</td>
+                                    <td>{{ $item->penanggungjawab }}</td>
 
                                     {{-- status dan tombol2 --}}
                                     @if ($item->status == 'Disetujui')
@@ -184,29 +207,44 @@
                                             <i class="fa-solid fa-circle-check"></i>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success"
-                                                style="width:37.5%">
+                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
                                                 <i class="fa fa-print"></i>
                                             </a>
+
+                                            <!-- Modal delete reservasi -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            {{-- <a href="{{ route('reservasi.hapus', $item->id) }}"
-                                                    style="width:37.5%" class="btn btn-danger">
-                                                    
-                                                </a> --}}
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <p>Apakah anda yakin ingin menghapus reservasi ini ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <a href="{{ route('reservasi.hapus', $item->id) }}"
+                                                                class="btn btn-primary">Save
+                                                                changes</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </td>
                                     @elseif ($item->status == 'Ditolak')
                                         <td class="text-danger">
                                             <i class="fa-solid fa-circle-xmark"></i>
                                         </td>
                                         <td>
-                                            <a class="btn btn-outline-success" style="width:37.5%"
+                                            <a class="btn btn-outline-success"
                                                 href="{{ route('admin.show', $item->id) }}"> <i class="fa fa-eye"></i>
                                             </a>
 
-                                            <a href="{{ route('admin.hapusreservasi', $item->id) }}" style="width:37.5%"
+                                            <a href="{{ route('admin.hapusreservasi', $item->id) }}"
                                                 class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -217,7 +255,7 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-outline-warning"
-                                                href="{{ route('status.edit', $item->id) }}" style="width: 75%">
+                                                href="{{ route('admin.konfirmasi', $item->id) }}" style="width: 75%">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -228,31 +266,18 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    {{-- {{ $reservasi->links() }} --}}
+                    <div class="row mt-2">
+                        <div class="col">
+                            {{ $reservasi->links() }}
+                        </div>
+                        <div class="col-md-2">
+                            Jumlah Data : {{ $reservasi->total() }}
+                        </div>     
+                    </div>   
                 </div>
             </div>
         </div>
         {{-- end daftar reservasi lapangan --}}
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 

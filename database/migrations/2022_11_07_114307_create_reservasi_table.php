@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
+            $table->BigInteger('kode_booking');
             $table->BigInteger('jenis_lapangan_id')->unsigned();
             $table->foreign('jenis_lapangan_id')->references('id')->on('lapangan')
                 ->onDelete('cascade')
@@ -28,7 +29,6 @@ return new class extends Migration
             $table->time('waktu_selesai');
             $table->text('kegiatan');
             $table->text('penanggungjawab');
-            $table->BigInteger('kode_booking')->nullable();
             $table->text('tipe_pemesan')->nullable();
             $table->text('status')->nullable();
             $table->text('alasan')->nullable();

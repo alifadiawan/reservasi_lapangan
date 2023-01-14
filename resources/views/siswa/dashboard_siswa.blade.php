@@ -65,6 +65,10 @@
                                         placeholder="" aria-describedby="helpId" value="{{ Auth::user()->name }}">
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="user_id" id="user_id" class="form-control"
+                                        placeholder="" aria-describedby="helpId" value="{{ $userId = Auth::id(); }}">
+                                </div>
+                                <div class="form-group">
                                     <input type="hidden" name="tipe_pemesan" id="tipe_pemesan" class="form-control"
                                         placeholder="" aria-describedby="helpId" value="{{ 'siswa' }}">
                                 </div>

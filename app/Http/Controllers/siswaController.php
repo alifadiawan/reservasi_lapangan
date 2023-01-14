@@ -73,6 +73,7 @@ class siswaController extends Controller
 
         reservasi::create([
             'jenis_lapangan_id' => $request->jenis_lapangan_id,
+            'user_id' => $request ->user_id,
             'tanggal'=> $request-> tanggal,
             'waktu_mulai'=> $request-> waktu_mulai,
             'waktu_selesai'=> $request-> waktu_selesai,

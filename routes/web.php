@@ -69,6 +69,8 @@ route::middleware('auth')->group(function ()  {
 
     //nambah route function
     Route::get('admin/tambah', [adminController::class, 'tambah'])->name('admin.tambah');
+    Route::get('admin/{id}/konfirmasi', [adminController::class, 'konfirmasi'])->name('admin.konfirmasi');
+    Route::get('/cari', [adminController::class, 'cari'])->name('cari');
     route::get('ooo',[siswaController::class, 'ooo']);
     Route::get('admin/{id}/hapus', [adminController::class, 'hapus'])->name('admin.hapus');
     Route::get('reservasi/{id}/hapus', [reservasiController::class, 'hapus'])->name('reservasi.hapus');
