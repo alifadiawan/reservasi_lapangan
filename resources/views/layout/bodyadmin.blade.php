@@ -9,6 +9,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
+
     @include('layout.css')
 
 </head>
@@ -26,6 +27,7 @@
     <!-- End Hero -->
 
     <div class="container">
+        <x:notify-messages />
         @yield('konten')
     </div>
 

@@ -103,7 +103,8 @@ class reservasiController extends Controller
             'kode_booking' => $this->KodeUnik()
         ]); 
 
-        Session::flash('success', 'data berhasil ditambah !!!');
+        notify()->success('Berhasil dibuat');
+        // Session::flash('success', 'data berhasil ditambah !!!');
         return redirect('/reservasi');
         
     }
@@ -159,7 +160,8 @@ class reservasiController extends Controller
     public function hapus($id)
     {
         $reservasi = reservasi::find($id)->delete();
-        session::flash('hapus_reservasi', );
+        // session::flash('hapus_reservasi', );
+        notify()->success('Reservasi milik Berhasil Dihapus');
         return redirect('/admin');
     }
 }

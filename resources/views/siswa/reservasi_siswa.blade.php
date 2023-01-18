@@ -3,6 +3,7 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
+
 <form method="post" enctype="multipart/form-data" action="{{ route('siswa.store') }}">
     @csrf
     <div class="form-group">

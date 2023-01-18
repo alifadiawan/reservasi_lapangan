@@ -84,7 +84,8 @@ class siswaController extends Controller
             'kode_booking' => $this->KodeUnik()
         ]); 
 
-        Session::flash('success');
+        notify()->success('Welcome to Laravel Notify ⚡️');
+        // Session::flash('success');
         return redirect('/siswa');
     }
 

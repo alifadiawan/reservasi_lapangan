@@ -93,6 +93,7 @@ class statusController extends Controller
         // $lapangan = lapangan::paginate(4);
         // $jumlah_siswa = User::where('role','siswa')->count();
         // $detail_siswa = User::where('role','siswa')->get('email');
+        notify()->success('a');
         Session::flash('setujui', auth()->user()->name);
         return redirect('/admin');
     }

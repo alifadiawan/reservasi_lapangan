@@ -11,6 +11,7 @@
 
     @include('layout.css')
 
+
 </head>
 
 @include('layout.navbar')
@@ -26,11 +27,11 @@
     <!-- End Hero -->
 
 
-{{-- konten --}}
-<div class="container">
-  @yield('konten')  
-</div>
-    
+    {{-- konten --}}
+    <div class="container">
+        @yield('konten')
+    </div>
+
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
+use App\Models\User;
 use App\Models\lapangan;
 use App\Models\reservasi;
 use Illuminate\Http\Request;

@@ -3,7 +3,7 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-
+<x:notify-messages />
     {{-- card row --}}
     <div class="row">
 
@@ -28,11 +28,6 @@
                                 <strong>Reservasi milik {{ $message }} telah dihapus</strong>
                             </div>
                         @endif
-                        @if ($message = Session::get('setujui'))
-                            <div class="alert alert-success alert-block mt-3">
-                                <p>Reservasi milik <strong>{{ $message }}</strong> berhasil diTOLAK</p>
-                            </div>
-                        @endif
                     </div>
 
                     {{-- search bar --}}
@@ -54,7 +49,7 @@
 
         {{-- jumlah siswa yg terdaftar --}}
         <div class="col">
-            <div class="card mt-3">
+            <div class="card">
                 <div class="card-header bg-dark text-white">
                     <h5>Jumlah Siswa yang terdaftar</h5>
                 </div>
@@ -135,7 +130,7 @@
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#example_Modal">TAMBAH FITUR LAPANGAN</button>
 
-                    <!-- Modal -->
+                    <!-- Modal fitur lapangan -->
                     <div class="modal fade" id="example_Modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -167,7 +162,7 @@
 
         {{-- daftar reservasi lapangan --}}
         <div class="col-lg-9">
-            <div class="card mt-3">
+            <div class="card">
                 <div class="card-header p-0 m-0">
                     <table class="table table-borderless text-white text-center">
                         <thead class="bg-dark">
@@ -210,7 +205,6 @@
                                             <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
                                                 <i class="fa fa-print"></i>
                                             </a>
-
                                             <!-- Modal delete reservasi -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
@@ -218,7 +212,7 @@
                                             </button>
                                             <div class="modal fade" id="exampleModal" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
+                                                <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-body">
                                                             <p>Apakah anda yakin ingin menghapus reservasi ini ?</p>
@@ -244,10 +238,27 @@
                                                 href="{{ route('admin.show', $item->id) }}"> <i class="fa fa-eye"></i>
                                             </a>
 
-                                            <a href="{{ route('admin.hapusreservasi', $item->id) }}"
-                                                class="btn btn-danger">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
                                                 <i class="fa fa-trash"></i>
-                                            </a>
+                                            </button>
+                                            <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <p>Apakah anda yakin ingin menghapus reservasi ini ?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <a href="{{ route('reservasi.hapus', $item->id) }}"
+                                                                class="btn btn-danger">Save
+                                                                changes</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     @else
                                         <td class="text-warning">
