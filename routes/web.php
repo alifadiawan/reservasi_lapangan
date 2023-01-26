@@ -47,8 +47,8 @@ route::middleware('guest')->group(function () {
         return view('antrian');
     }); 
 
-    Route::get('/login', [loginController::class, 'index'])->name('login');
     Route::resource('reservasi', reservasiController::class);
+    Route::get('/login', [loginController::class, 'index'])->name('login');
     Route::post('/login', [loginController::class, 'authenticate']);
     Route::resource('/register', registerController::class);
     Route::resource('/reservasi', reservasiController::class);
@@ -77,7 +77,7 @@ route::middleware('auth')->group(function ()  {
     Route::get('admin/{id}/hapusreservasi', [adminController::class, 'hapus'])->name('admin.hapusreservasi');
     Route::post('logout', [loginController::class, 'logout']);
     Route::get('print', [reservasiController::class]);
-});
+    });
 
 
 //nambah function

@@ -24,26 +24,21 @@ class loginController extends Controller
             'password' => ['required'],
         ]);
 
-        // if (Auth::user()-> role == 'admin') {
-        //     return redirect(route('admin.index'));  // admin dashboard path
-        // } else {
-        //     return redirect(route('siswa.index'));  // siswa dashboard path
-        // }
-
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
 
-            if(Auth::user()->role == 'admin') {
-                return redirect()->intended('/admin');
+            if(Auth::user()->role == 'admian') {
+                return redirect()->intended('admin');
             } else{
-                return redirect()->intended('/siswa');
+                return redirect()->intended('siswa');
             }
         }
-            
-        
 
         Session::flash('danger', 'login anda gagal');
         return back()->withErrors('loginerror', 'Login anda gagal');
+
+
+
     }
 
 

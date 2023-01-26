@@ -34,6 +34,13 @@
                                         placeholder="email address" />
                                 </div>
                                 <div class="form-outline mb-4">
+                                    <select name="kelas_id" id="kelas_id" class="form-select">
+                                       @foreach ($kelas as $item)
+                                            <option value="{{$item->id}}">{{$item->nama_kelas}}</option>
+                                       @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-outline mb-4">
                                     <input type="password" id="password" name="password"
                                         class="form-control form-control-lg" placeholder="Password" />
                                     {{-- <label class="form-label" for="typePasswordX-2">Password</label> --}}

@@ -17,15 +17,13 @@
 <body>
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center">
-        <div class="container position-relative" data-aos="fade-up" data-aos-delay="500">
-            @yield('content')
+    <section id="konten" class="d-flex align-items-center h-100">
+        <div class="container position-relative">
+            @yield('isibody')
         </div>
-    </section><!-- End Hero -->
+    </section>
+    <!-- End Hero -->
 
-    <div class="container">
-        @yield('isibody')
-    </div>
 
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -37,3 +35,12 @@
 </body>
 
 </html>
+
+<style>
+    #konten {
+        background-image: url('img/hero-bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+</style>

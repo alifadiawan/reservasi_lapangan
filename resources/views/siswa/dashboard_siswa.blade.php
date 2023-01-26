@@ -3,7 +3,7 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-
+    x:notify-messages />
     <div class="row mx-5">
         {{-- alert message --}}
         @if ($message = Session::get('success'))
@@ -65,8 +65,8 @@
                                         placeholder="" aria-describedby="helpId" value="{{ Auth::user()->name }}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="user_id" id="user_id" class="form-control"
-                                        placeholder="" aria-describedby="helpId" value="{{ $userId = Auth::id(); }}">
+                                    <input type="hidden" name="user_id" id="user_id" class="form-control" placeholder=""
+                                        aria-describedby="helpId" value="{{ $userId = Auth::id() }}">
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="tipe_pemesan" id="tipe_pemesan" class="form-control"
@@ -77,8 +77,8 @@
                                         placeholder="" aria-describedby="helpId" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="status" id="status" class="form-control" placeholder=""
-                                        aria-describedby="helpId" value="{{ 'Menunggu' }}">
+                                    <input type="hidden" name="status" id="status" class="form-control"
+                                        placeholder="" aria-describedby="helpId" value="{{ 'Menunggu' }}">
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -147,7 +147,63 @@
                 </tbody>
             </table>
         </div>
+
+        <h5>Reservasi Milik {{ auth()->user()->name }}</h5>
+        <table class="table table-bordered table-hover text-white text-center">
+            <thead class="bg-danger">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Mulai</th>
+                    <th scope="col">Selesai</th>
+                    <th scope="col">kegiatan</th>
+                    <th scope="col">Penanggung Jawab</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($reservasi as $i => $item)
+                    @if (auth()->user()->id == $item->user_id)
+                        <tr class="text-dark active">
+                            <th scope="row">{{ $item->created_at }}</th>
+                            <td>{{ $item->tanggal }}</td>
+                            <td>{{ $item->waktu_mulai }}</td>
+                            <td>{{ $item->waktu_selesai }}</td>
+                            <td>{{ $item->kegiatan }}</td>
+                            <td>{{ $item->penanggungjawab }}</td>
+                            @if ($item->status == 'Disetujui')
+                                <td class="text-success">
+                                    <i class="fa-solid fa-check"></i>
+                                </td>
+                                <td>
+                                    <a href="{{ route('siswa.show', $item->id) }}" class="btn btn-outline-success">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </td>
+                            @elseif ($item->status == 'Ditolak')
+                                <td class="text-danger">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                </td>
+                                <td>
+                                    <a href="{{ route('siswa.show', $item->id) }}">
+                                        <i class="fa-solid fa-x"></i>
+                                    </a>
+                                </td>
+                            @else
+                                <td class="text-warning">
+                                    <i class="fa-solid fa-clock"></i>
+                                </td>
+                                <td class="text-warning">
+                                    <i class="fa-solid fa-clock"></i>
+                                </td>
+                            @endif
+                    @endif
+                @endforeach
+            </tbody>
+        </table>
+
     </div>
 
-    
+
 @endsection

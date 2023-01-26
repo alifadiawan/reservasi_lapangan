@@ -1,7 +1,8 @@
-@extends('layout.css')
-@extends('layout.script')
+@extends('layout.bodyadmin')
+{{-- @extends('layout.script') --}}
 @section('judul_tab', 'DASHBOARD')
 @section('judul_navbar', 'DASHBOARD')
+@section('konten')
 
 <div class="container">
     {{-- alert message --}}
@@ -29,12 +30,6 @@
 
     {{-- card row --}}
     <div class="row">
-
-        <div class="row mt-3">
-            <div class="alert alert-primary" role="alert">
-                A simple primary alert—check it out!
-              </div>
-        </div>
 
         {{-- search bar --}}
         <div class="row">
@@ -176,3 +171,4 @@
         </div>
     </div>
 </div>
+@endsection

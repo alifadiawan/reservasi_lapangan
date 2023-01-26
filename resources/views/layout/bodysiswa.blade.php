@@ -25,9 +25,8 @@
     </div>
   </section> --}}
     <!-- End Hero -->
-
-
     {{-- konten --}}
+    
     <div class="container">
         @yield('konten')
     </div>

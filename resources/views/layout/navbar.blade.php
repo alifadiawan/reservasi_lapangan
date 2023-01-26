@@ -13,14 +13,11 @@
             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#logout_modal" type="button" >
                   <i class="fa fa-sign-out"></i>
               </button> 
-              <x:notify-messages />
           </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
       <!-- .navbar -->
-
-
     </div>
   </header>
   <!-- End Header -->

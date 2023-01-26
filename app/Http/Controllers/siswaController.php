@@ -18,9 +18,15 @@ class siswaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    
+    //  public function __construct()
+    //  {
+    //      $this->middleware(['siswa']);
+    //  }
+
     public function index()
     {
-
+        // $reservasi_user = reservasi::all()->where('user_id', 'name')->get();
         $user_id = Auth::user()->name;
         $reservasi = reservasi::all()->sortBy('created_at');
         $lapangan = lapangan::all();
@@ -84,7 +90,7 @@ class siswaController extends Controller
             'kode_booking' => $this->KodeUnik()
         ]); 
 
-        notify()->success('Welcome to Laravel Notify ⚡️');
+        notify()->success('siswa berhasil melakukan reservasi');
         // Session::flash('success');
         return redirect('/siswa');
     }

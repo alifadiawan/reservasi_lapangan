@@ -24,6 +24,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
+        User::create([
+            'name' => 'siswa',
+            'email' => 'siswa@gmail.com',
+            'password' => ('123456'),
+            'role' => 'siswa'
+        ]);
+
         lapangan::create([
             'nama_lapangan' => 'Lapangan Indoor'
         ]);

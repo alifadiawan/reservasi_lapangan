@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\reservasi;
 use App\Models\lapangan;
 use App\Models\User;
+use App\Models\kelas;
 
 class registerController extends Controller
 {
@@ -32,7 +33,8 @@ class registerController extends Controller
     public function create()
     {
         //
-        return view('/register_siswa');
+        $kelas = kelas::all();
+        return view('/register_siswa', compact('kelas'));
     }
 
     /**
@@ -47,10 +49,18 @@ class registerController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'kelas_id'=> 'required'
         ]);
         
-        $user = User::create(request(['name', 'email', 'password']));
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'kelas_id' => $request->kelas_id,
+        ]);
+
+        // $user = User::create(request(['name', 'email', 'password', 'kelas_id']));
         
         return redirect()->to('login')->with(['register_success' => $user->email]);
     }

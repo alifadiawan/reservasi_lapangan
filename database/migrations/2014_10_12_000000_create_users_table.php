@@ -17,9 +17,13 @@ return new class extends Migration
             $table->id('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->bcrypt();
             $table->string('role')->default('siswa');
+            $table->BigInteger('kelas_id')->unsigned()->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+                $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

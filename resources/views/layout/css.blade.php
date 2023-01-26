@@ -1,5 +1,5 @@
  {{-- notif --}}
- @notifyCss
+ @notifyJs
 
  <!-- Favicons -->
  <link href="{{asset('assets/img/favicon.png')}}" rel="icon">

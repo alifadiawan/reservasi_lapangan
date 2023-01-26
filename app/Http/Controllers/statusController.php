@@ -95,7 +95,7 @@ class statusController extends Controller
         // $detail_siswa = User::where('role','siswa')->get('email');
         notify()->success('a');
         Session::flash('setujui', auth()->user()->name);
-        return redirect('/admin');
+        return redirect('admin');
     }
 
     /**

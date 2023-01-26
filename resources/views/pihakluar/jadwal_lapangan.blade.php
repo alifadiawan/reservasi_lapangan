@@ -1,7 +1,7 @@
-@extends('layout.bodyall')
+@extends('layout.gtw')
 @section('judul_tab', 'JADWAL LAPANGAN')
 @section('judul_navbar', 'JADWAL LAPANGAN')
-@section('content')
+@section('isibody')
 
     <a href="/" class="btn btn-danger mb-5">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -40,13 +40,13 @@
                                 </a>
                             </td>
                         @elseif ($item->status == 'Ditolak')
-                            {{-- <td class="text-danger">
+                            <td class="text-danger">
                                 <i class="fa-solid fa-circle-xmark"></i>
-                            </td> --}}
+                            </td>
                         @else
-                            {{-- <td class="text-warning">
+                             <td class="text-warning">
                                 <i class="fa-solid fa-clock"></i>
-                            </td> --}}  
+                            </td>  
                         @endif
                     </tr>
                 @endforeach

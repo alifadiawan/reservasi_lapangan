@@ -3,7 +3,6 @@
 @section('judul_navbar', 'DASHBOARD')
 @section('konten')
 
-<x:notify-messages />
     {{-- card row --}}
     <div class="row">
 
@@ -49,66 +48,21 @@
 
         {{-- jumlah siswa yg terdaftar --}}
         <div class="col">
-            <div class="card">
-                <div class="card-header bg-dark text-white">
-                    <h5>Jumlah Siswa yang terdaftar</h5>
-                </div>
-                <div class="card-body">
-                    {{ $jumlah_siswa }}
-                </div>
-                <div class="card-footer">
-                    <a href="" data-bs-toggle="modal" data-bs-target="#detailsiswa">Lihat lebih detail</a>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="detailsiswa" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Detail Siswa</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table-borderless">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Email</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($detail_siswa as $i => $item)
-                                                <tr>
-                                                    <th scope="row">{{ ++$i }}</th>
-                                                    {{-- <td>{{ $item-> name }}</td> --}}
-                                                    <td>{{ $item->email }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- fitur lapangan --}}
-            <div class="card mt-3">
-                <div class="card-header bg-dark text-white">
-                    <h5>Fitur - Fitur Lapangan</h5>
+            <div class="card">
+                <div class="card-header bg-dark text-white text-center">
+                    <h5>Fitur Lapangan</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-borderless">
-                        <thead class="text-center">
+                        <thead class="">
                             <tr>
-                                <th>Fitur Lapangan</th>
+                                <th>Nama Fitur</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody>
                             @foreach ($lapangan as $i => $item)
                                 <tr>
                                     <td>{{ $item->nama_lapangan }}</td>
@@ -163,7 +117,7 @@
         {{-- daftar reservasi lapangan --}}
         <div class="col-lg-9">
             <div class="card">
-                <div class="card-header p-0 m-0">
+                <div class="card-body p-0">
                     <table class="table table-borderless text-white text-center">
                         <thead class="bg-dark">
                             <tr>
@@ -185,8 +139,6 @@
                                     </td>
                                 </tr>
                             @endif
-
-
                             @foreach ($reservasi as $i => $item)
                                 <tr>
                                     <th scope="row">{{ $item->kode_booking }}</th>
@@ -277,14 +229,14 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    <div class="row mt-2">
+                    <div class="row mt-3">
                         <div class="col">
                             {{ $reservasi->links() }}
                         </div>
                         <div class="col-md-2">
                             Jumlah Data : {{ $reservasi->total() }}
-                        </div>     
-                    </div>   
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

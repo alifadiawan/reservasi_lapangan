@@ -19,10 +19,10 @@ class adminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(['admin']);
+    // }
 
     public function index()
     {
@@ -83,15 +83,17 @@ class adminController extends Controller
         // menangkap data pencarian
         $reservasicari = $request->cari;
 
-        // mengambil data dari table pegawai sesuai pencarian data
+        // mengambil data dari table reservasi sesuai pencarian data
         $reservasicari = DB::table('reservasi')
             ->where('kode_booking', 'like', "%" . $reservasicari . "%")
             ->orWhere('penanggungjawab', 'like', '%' . $reservasicari . '%')
             ->paginate();
 
-        // mengirim data pegawai ke view index
+        // mengirim data reservasi ke view index
         $reservasi = reservasi::paginate(5);
-        return view('admin.hasil',['reservasi' => $reservasicari] , compact('reservasi'));    
+        $lapangan = lapangan::all();
+        return view('admin.hasil',['reservasi' => $reservasicari] , compact('reservasi')); 
+        // return view('admin.dashboard_admin', ['reservasi' => $reservasicari] , compact('reservasi', 'lapangan'));   
     }
 
     /**
