@@ -12,6 +12,7 @@ class reservasi extends Model
     protected $fillable = [
         'jenis_lapangan_id',
         'user_id',
+        'kelas_id',
         'tanggal',
         'waktu_mulai',
         'waktu_selesai',
@@ -22,8 +23,16 @@ class reservasi extends Model
         'status'
     ];
     protected $table = 'reservasi';
-    public function jenis_lapangan(){
-        return $this->belongsToMany('App\Models\lapangan', 'id');
+    public function jenislap(){
+        return $this->belongsToMany(lapangan::class);
+    }
+
+    public function kelas(){
+        return $this->hasManyThrough('App\Models\kelas', 'kelas');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     public $sortable = ['id', 'created_at', 'status', 'user_id'];

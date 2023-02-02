@@ -17,10 +17,9 @@ class siswaMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role != 'siswa'){
-            return $next($request);
-          } else {
-            return redirect('login');
-          } 
+      if (Auth::check() && Auth::user()->role == 'siswa') {
+        return $next($request);
+      }
+      return redirect('login');
     }
 }

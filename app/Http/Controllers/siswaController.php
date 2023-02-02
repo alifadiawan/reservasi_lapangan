@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\file;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use App\Models\reservasi;
 use App\Models\lapangan;

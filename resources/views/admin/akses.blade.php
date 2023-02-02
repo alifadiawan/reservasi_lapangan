@@ -21,7 +21,7 @@
                     <hr>
                     <div class="row">
                         <div class="col">Jenis Lapangan</div>
-                        <div class="col text-end"></div>
+                        {{-- <div class="col text-end">{{$reservasi->jenis_lapangan->nama_lapangan}}</div> --}}
                     </div>
                     <hr>
                     <div class="row">

@@ -9,6 +9,7 @@
         {{-- search bar --}}
         <div class="row">
             <div class="container mt-3">
+                {{-- <a href="{{route('admin.cetakpdf')}}" target="_blank" class="btn btn-danger">print</a> --}}
                 <div class="row justify-content-end">
                     <div class="col">
                         {{-- alert message --}}
@@ -154,9 +155,12 @@
                                             <i class="fa-solid fa-circle-check"></i>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
+                                            <a href="{{route('admin.cetakpdf', $item->id)}}" target="_blank" class="btn btn-success">
                                                 <i class="fa fa-print"></i>
                                             </a>
+                                            {{-- <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
+                                                <i class="fa fa-print"></i>
+                                            </a> --}}
                                             <!-- Modal delete reservasi -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">

@@ -41,6 +41,9 @@
                                         aria-describedby="helpId">
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="kelas_id" id="kelas_id" class="form-control" aria-describedby="helpId">
+                                </div>
+                                <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
                                     <input type="date" name="tanggal" id="tanggal" class="form-control"
                                         placeholder="tanggal pinjam" aria-describedby="helpId">

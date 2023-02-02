@@ -19,7 +19,6 @@
                     </tr>
                 </thead>
                 <tbody class="text-dark">
-
                         <tr>
                             <th scope="row">{{ ++$i }}</th>
                             <td>{{ $item->tanggal }}</td>

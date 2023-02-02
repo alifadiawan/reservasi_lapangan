@@ -1,5 +1,5 @@
 @extends('layout.bodyall')
-@section('judul_tab')
+@section('judul_tab', 'LAPANGAN')
 @section('judul_navbar')
 @section('content')
 

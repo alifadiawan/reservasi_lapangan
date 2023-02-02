@@ -1,43 +1,50 @@
-@extends('layout.bodyall')
-@section('judul_tab', 'tes')
-@section('judul_navbar', 'LOGIN')
-@section('content')
+<!DOCTYPE html>
+<html>
 
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-md-8 ">
-            <div class="card shadow-2-strong text-white" style="border-radius: 1rem; background-color:#191919;">
-                <div class="card-body p-5">
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
 
-                    <div id="not_print">
-                        <a href="{{ route('admin.index') }}"" class="btn btn-danger mb-3">
-                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        </a>
-                    </div>
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
 
-                    <table class="table table-borderless text-center">
-                        <thead class="text-center text-white">
-                            <tr>
-                                <th>Nama</th>
-                                <th>Tanggal</th>
-                                <th>Jenis Lapangan</th>
-                                <th>Waktu Mulai</th>
-                                <th>Waktu Selesai</th>
-                            </tr>
-                        </thead>
+<body>
 
-                        <tbody class="text-white">
-                            <tr>
-                                <td>{{ $reservasi->penanggungjawab }}</td>
-                                <td>{{ $reservasi->tanggal }}</td>
-                                <td>{{ $reservasi->waktu_mulai }}</td>
-                                <td>{{ $reservasi->waktu_selesai }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th scope="col">KODE BOOKING</th>
+                    <th scope="col">NAMA</th>
+                    <th scope="col">KELAS</th>
+                    <th scope="col">JENIS LAPANGAN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- @foreach ($reservasi as $item) --}}
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{$reservasi->nama}}</td>
+                    </tr>
+                {{-- @endforeach --}}
+            </tbody>
+        </table>
+    </div>
 
+</body>
 
-    @endsection
+</html>

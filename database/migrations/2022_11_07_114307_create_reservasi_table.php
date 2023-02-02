@@ -24,6 +24,10 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->BigInteger('kelas_id')->unsigned()->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->date('tanggal');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');

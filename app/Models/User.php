@@ -51,4 +51,7 @@ class User extends Authenticatable
     public function hasRole(){
         
     }
+    public function reservasi(){
+        return $this->hasOne(reservasi::class);
+    }
 }

@@ -9,8 +9,12 @@ class kelas extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'naka_kelas'
+        'nama_kelas'
     ];
 
     protected $table = 'kelas'; 
+
+    public function reservasi(){
+        return $this->hasManyThrough('App\Models\reservasi', 'reservasi');
+    }
 }

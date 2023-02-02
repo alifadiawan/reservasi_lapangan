@@ -34,35 +34,37 @@ use App\Http\Controllers\statusController;
 
 // print all
 
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/antrian', function () {
+    return view('antrian');
+});
 
 
-
-//siswa
 route::middleware('guest')->group(function () {
-    //welcome page
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    Route::get('/antrian', function () {
-        return view('antrian');
-    }); 
-
     Route::resource('reservasi', reservasiController::class);
-    Route::get('/login', [loginController::class, 'index'])->name('login');
-    Route::post('/login', [loginController::class, 'authenticate']);
     Route::resource('/register', registerController::class);
     Route::resource('/reservasi', reservasiController::class);
     Route::get('/jadwal_lapangan', reservasiController::class);
     Route::get('/tabel_reservasi', reservasiController::class);
+    Route::get('/login', [loginController::class, 'index'])->name('login');
+    Route::post('/login', [loginController::class, 'authenticate']);
+});
+
+
+Route::post('logout', [loginController::class, 'logout']);
+
+
+//siswa
+route::middleware(['siswa'])->group(function () {
+    Route::resource('siswa', siswaController::class);
+    route::get('ooo', [siswaController::class, 'ooo']);
 });
 
 
 //admin
-route::middleware('auth')->group(function ()  {
-    //siswa
-    Route::resource('siswa', siswaController::class);
-
-    //admin
+route::middleware(['admin'])->group(function () {
     Route::resource('admin', adminController::class);
     Route::resource('status', statusController::class);
     Route::resource('akses', aksesController::class);
@@ -70,14 +72,12 @@ route::middleware('auth')->group(function ()  {
     //nambah route function
     Route::get('admin/tambah', [adminController::class, 'tambah'])->name('admin.tambah');
     Route::get('admin/{id}/konfirmasi', [adminController::class, 'konfirmasi'])->name('admin.konfirmasi');
+    Route::get('/admin/{id}/cetak_pdf', [adminController::class, 'cetak_pdf'])->name('admin.cetakpdf');
     Route::get('/cari', [adminController::class, 'cari'])->name('cari');
-    route::get('ooo',[siswaController::class, 'ooo']);
     Route::get('admin/{id}/hapus', [adminController::class, 'hapus'])->name('admin.hapus');
     Route::get('reservasi/{id}/hapus', [reservasiController::class, 'hapus'])->name('reservasi.hapus');
     Route::get('admin/{id}/hapusreservasi', [adminController::class, 'hapus'])->name('admin.hapusreservasi');
-    Route::post('logout', [loginController::class, 'logout']);
-    Route::get('print', [reservasiController::class]);
-    });
+});
 
 
 //nambah function
