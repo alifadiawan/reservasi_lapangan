@@ -29,8 +29,8 @@ return new class extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->date('tanggal');
-            $table->time('waktu_mulai');
-            $table->time('waktu_selesai');
+            $table->char('waktu_mulai');
+            $table->char('waktu_selesai');
             $table->text('kegiatan');
             $table->text('penanggungjawab');
             $table->text('tipe_pemesan')->nullable();

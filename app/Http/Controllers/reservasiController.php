@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Models\reservasi;
 use App\Models\lapangan;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class reservasiController extends Controller
 {
@@ -38,8 +40,9 @@ class reservasiController extends Controller
      */
     public function create()
     {
-        $lapangan = lapangan::all();
-        return view('pihakluar.tabel_reservasi', compact('lapangan'));
+        $reservasi = Reservasi::all();
+        $lapangan = Lapangan::all();
+        return view('pihakluar.tabel_reservasi', compact('lapangan', 'reservasi'));
     }
 
     public function tambah()
@@ -56,11 +59,9 @@ class reservasiController extends Controller
         return $code;
     }
 
-    public function print($id)
+    public function between(Request $request)
     {
-        $reservasi = reservasi::find($id);
-        $nama_lapangan = lapangan::find($id);
-        return view('siswa.printsiswa', compact('reservasi','nama_lapangan'));
+        
     }
 
     /**
@@ -69,9 +70,27 @@ class reservasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function cek_waktu(Request $request)
+    {
+
+        $s = "7";
+        $e = "12";
+
+        $start = $s;
+        $end = $e;
+        
+        if($start > $end){
+            return('negative');
+        }else{
+            return(($end - $start) * 100000);
+        }
+    }
+
+
     public function store(Request $request)
     {
-        //
+
         $message = [
             'required' => ':attribute harus diisi ',
             'min' => ':attribute minimal :min karakter ya ',
@@ -84,31 +103,45 @@ class reservasiController extends Controller
             'waktu_mulai'=> 'required',
             'waktu_selesai'=> 'required',
             'kegiatan'=> 'required',
-            'penanggungjawab'=> 'required',
+            'penanggungjawab'=> 'required', 
         ], $message );
 
-        reservasi::create([
-            'jenis_lapangan_id' => $request->jenis_lapangan_id,
-
-            //user yang sedang login 
-            'user_id'=> $request->user(),
-
-            'tanggal'=> $request-> tanggal,
-            'waktu_mulai'=> $request-> waktu_mulai,
-            'waktu_selesai'=> $request-> waktu_selesai,
-            'kegiatan'=> $request -> kegiatan ,
-            'penanggungjawab'=> $request-> penanggungjawab,
-            'tipe_pemesan'=> $request-> tipe_pemesan,
-            'status'=> $request-> status,
-            'kode_booking' => $this->KodeUnik()
-        ]); 
-
-        notify()->success('Berhasil dibuat');
-        // Session::flash('success', 'data berhasil ditambah !!!');
-        return redirect('/reservasi');
+        //cek waktu
+        $start = $request->waktu_mulai;
+        $end = $request->waktu_selesai;
         
+        if($start > $end or $end - $start > 8 ){
+            Session::flash('salah', 'Waktu tidak valid / lebih dari 8 jam ');
+            return redirect('/reservasi/create');
+        }else{
+            reservasi::create([
+                'jenis_lapangan_id' => $request->jenis_lapangan_id,
+    
+                //user yang sedang login 
+                'user_id'=> $request->  user(),
+    
+                'tanggal'=> $request-> tanggal,
+                'waktu_mulai'=> $start,
+                'waktu_selesai'=> $end,
+                'kegiatan'=> $request -> kegiatan ,
+                'penanggungjawab'=> $request-> penanggungjawab,
+                'tipe_pemesan'=> $request-> tipe_pemesan,
+                'status'=> $request-> status,
+                'kode_booking' => $this->KodeUnik()
+            ]); 
+            Session::flash('success', 'data berhasil ditambah !!!');
+            return redirect('/reservasi');
+        }      
     }
 
+    public function cetak_pdf($id)
+    {
+    	$reservasi = reservasi::find($id);
+        // return $reservasi;
+    	$pdf = PDF::loadview('pihakluar.cetak_pihakluar',['reservasi'=>$reservasi]);
+    	// return $pdf->download('reservasi.pdf');
+        return $pdf->stream();
+    }
 
     /**
      * Display the specified resource.

@@ -11,6 +11,7 @@ use App\Models\lapangan;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 
 
 class adminController extends Controller
@@ -51,8 +52,8 @@ class adminController extends Controller
     {
     	$reservasi = reservasi::find($id);
     	$pdf = PDF::loadview('admin.cetak',['reservasi'=>$reservasi]);
-    	return $pdf->download('reservasi.pdf');
-        // return $pdf->stream();
+    	// return $pdf->download('reservasi.pdf');
+        return $pdf->stream();
     }
 
 
@@ -62,6 +63,13 @@ class adminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // public function between()
+    // {
+    //     $time = $request
+    // }
+
+
     public function store(Request $request)
     {
         $message = [
@@ -98,8 +106,7 @@ class adminController extends Controller
         // mengirim data reservasi ke view index
         $reservasi = reservasi::paginate(5);
         $lapangan = lapangan::all();
-        return view('admin.hasil', ['reservasi' => $reservasicari], compact('reservasi'));
-        // return view('admin.dashboard_admin', ['reservasi' => $reservasicari] , compact('reservasi', 'lapangan'));   
+        return view('admin.hasil', ['reservasi' => $reservasicari], compact('reservasi')); 
     }
 
     /**
@@ -110,10 +117,9 @@ class adminController extends Controller
      */
     public function show($id)
     {
-        // //
-        // $reservasi = reservasi::find($id);
-        // $lapangan = lapangan::find($id);
-        // return view('admin.print', compact('reservasi', 'lapangan'));
+        $reservasi = reservasi::find($id);
+        $lapangan = lapangan::find($id);
+        return view('admin.print', compact('reservasi', 'lapangan'));
     }
 
     public function konfirmasi($id)

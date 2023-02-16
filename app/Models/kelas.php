@@ -14,7 +14,7 @@ class kelas extends Model
 
     protected $table = 'kelas'; 
 
-    public function reservasi(){
-        return $this->hasManyThrough('App\Models\reservasi', 'reservasi');
+    public function user(){
+        return $this->hasManyThrough(reservasi::class, kelas::class);
     }
 }

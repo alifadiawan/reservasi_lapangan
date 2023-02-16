@@ -48,7 +48,7 @@
         </div>
 
         {{-- jumlah siswa yg terdaftar --}}
-        <div class="col">
+        <div class="col-2">
 
             {{-- fitur lapangan --}}
             <div class="card">
@@ -59,7 +59,7 @@
                     <table class="table table-hover table-borderless">
                         <thead class="">
                             <tr>
-                                <th>Nama Fitur</th>
+                                <th>Fitur</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -116,7 +116,7 @@
         </div>
 
         {{-- daftar reservasi lapangan --}}
-        <div class="col-lg-9">
+        <div class="col-10">
             <div class="card">
                 <div class="card-body p-0">
                     <table class="table table-borderless text-white text-center">
@@ -124,6 +124,7 @@
                             <tr>
                                 <th scope="col">@sortablelink('kode_booking', 'No')</th>
                                 <th scope="col">Waktu Reservasi</th>
+                                <th scope="col">Jenis Lapangan</th>
                                 <th scope="col">Dari Jam</th>
                                 <th scope="col">Sampai Jam</th>
                                 <th scope="col-lg">kegiatan</th>
@@ -144,8 +145,9 @@
                                 <tr>
                                     <th scope="row">{{ $item->kode_booking }}</th>
                                     <td>{{ $item->tanggal }}</td>
-                                    <td>{{ $item->waktu_mulai }}</td>
-                                    <td>{{ $item->waktu_selesai }}</td>
+                                    <td>{{ $item->lapangan->nama_lapangan }}</td>
+                                    <td>{{ $item->waktu_mulai }} : 00</td>
+                                    <td>{{ $item->waktu_selesai }} : 00</td>
                                     <td>{{ $item->kegiatan }}</td>
                                     <td>{{ $item->penanggungjawab }}</td>
 
@@ -155,12 +157,15 @@
                                             <i class="fa-solid fa-circle-check"></i>
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.cetakpdf', $item->id)}}" target="_blank" class="btn btn-success">
-                                                <i class="fa fa-print"></i>
-                                            </a>
                                             {{-- <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success">
                                                 <i class="fa fa-print"></i>
                                             </a> --}}
+
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#modal-detail{{ $item->id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+
                                             <!-- Modal delete reservasi -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
@@ -247,5 +252,51 @@
         {{-- end daftar reservasi lapangan --}}
 
     </div>
+
+
+    @foreach ($reservasi as $detail)
+        <!-- Modal -->
+        <div class="modal fade" id="modal-detail{{ $detail->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-box">
+                                    <p class="fw-bol">Nama Pemesan :</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="text-box">
+                                    <p>{{ $detail->penanggungjawab }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-box">
+                                    <p class="fw-bol">Tipe Lapangan :</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="text-box">
+                                    <p>{{ $detail->lapangan->nama_lapangan }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
 @endsection

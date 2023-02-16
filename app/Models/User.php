@@ -54,4 +54,9 @@ class User extends Authenticatable
     public function reservasi(){
         return $this->hasOne(reservasi::class);
     }
+
+    public function kelas()
+    {
+        return $this->belongsTo(kelas::class);
+    }
 }

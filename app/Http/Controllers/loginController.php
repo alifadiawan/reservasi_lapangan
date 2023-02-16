@@ -14,7 +14,9 @@ class loginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        $reservasi = reservasi::all();
+        $lapangan = lapangan::all();
+        return view('login', compact('lapangan', 'reservasi'));
     }
 
     public function authenticate(Request $request)

@@ -18,10 +18,15 @@
                         <div class="col">Nama Pemesan</div>
                         <div class="col text-end">{{ $reservasi->penanggungjawab }}</div>
                     </div>
+                    <div class="row">
+                        <div class="col">Kelas</div>
+                        <div class="col text-end">{{ $reservasi->kelas_id }}</div>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col">Jenis Lapangan</div>
-                        {{-- <div class="col text-end">{{$reservasi->jenis_lapangan->nama_lapangan}}</div> --}}
+                        <div class="col text-end">{{$reservasi->lapangan->nama_lapangan}}</div>
+                        {{-- <div class="col text-end">{{$reservasi->lapangan->nama_lapangan}}</div> --}}
                     </div>
                     <hr>
                     <div class="row">

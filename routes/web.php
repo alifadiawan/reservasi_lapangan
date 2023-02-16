@@ -34,22 +34,30 @@ use App\Http\Controllers\statusController;
 
 // print all
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/antrian', function () {
-    return view('antrian');
-});
 
 
-route::middleware('guest')->group(function () {
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::middleware('guest')->group(function () {
+
+    Route::get('/', [welcomeController::class, 'index']);
+    Route::get('/login', [loginController::class, 'index'])->name('login');
+    Route::post('/login', [loginController::class, 'authenticate']);
+    Route::get('/cek_waktu', [reservasiController::class, 'cek_waktu'])->name('reservasi.cekwaktu');
+    Route::get('reservasi/tambah', [reservasiController::class, 'tambah'])->name('reservasi.tambah');
+
     Route::resource('reservasi', reservasiController::class);
     Route::resource('/register', registerController::class);
     Route::resource('/reservasi', reservasiController::class);
+
+    Route::get('/between', [reservasiController::class, 'between'])->name('between');
+
     Route::get('/jadwal_lapangan', reservasiController::class);
     Route::get('/tabel_reservasi', reservasiController::class);
-    Route::get('/login', [loginController::class, 'index'])->name('login');
-    Route::post('/login', [loginController::class, 'authenticate']);
+    Route::get('/cetakpdf/{id}', [reservasiController::class, 'cetak_pdf'])->name('cetak.pdf');
 });
 
 
@@ -81,4 +89,3 @@ route::middleware(['admin'])->group(function () {
 
 
 //nambah function
-Route::get('reservasi/tambah', [reservasiController::class, 'tambah'])->name('reservasi.tambah');

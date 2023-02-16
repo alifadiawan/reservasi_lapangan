@@ -101,18 +101,13 @@
                                             <i class="fa-solid fa-circle-check"></i>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.show', $item->id) }}" class="btn btn-success"
-                                                style="width:37.5%">
+                                            <a href="{{route('admin.cetakpdf', $item->id)}}" target="_blank" class="btn btn-success">
                                                 <i class="fa fa-print"></i>
                                             </a>
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            {{-- <a href="{{ route('reservasi.hapus', $item->id) }}"
-                                                    style="width:37.5%" class="btn btn-danger">
-                                                    
-                                                </a> --}}
                                         </td>
                                     @elseif ($item->status == 'Ditolak')
                                         <td class="text-danger">

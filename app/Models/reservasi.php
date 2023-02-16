@@ -22,13 +22,11 @@ class reservasi extends Model
         'penanggungjawab',
         'status'
     ];
+    
     protected $table = 'reservasi';
-    public function jenislap(){
-        return $this->belongsToMany(lapangan::class);
-    }
 
-    public function kelas(){
-        return $this->hasManyThrough('App\Models\kelas', 'kelas');
+    public function lapangan(){
+        return $this->belongsTo(lapangan::class, 'jenis_lapangan_id');
     }
 
     public function user(){

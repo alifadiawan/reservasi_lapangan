@@ -12,8 +12,9 @@ class lapangan extends Model
         'nama_lapangan'
     ];
     protected $table = 'lapangan';
+    
     public function reservasi(){
-        return $this->hasManyThrough('App\Models\reservasi', 'reservasi');
+        return $this->hasOne(reservasi::class);
     }
 
     protected $casts = [

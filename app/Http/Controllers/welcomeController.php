@@ -18,15 +18,15 @@ class welcomeController extends Controller
      */
     public function index()
     {
-        //
-        $data = reservasi::all();
-        return view ('welcome' , compact('data'));
+        $reservasi = Reservasi::all();
+        $lapangan = Lapangan::all();
+        return view ('welcome', compact('lapangan', 'reservasi'));
     }
 
     public function __construct()
     {
         
-        $this->middleware('auth');
+        // $this->middleware('auth');
         /**
           * Show the application dashboard.
      *

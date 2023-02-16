@@ -2,6 +2,9 @@
 <html>
 
 <head>
+
+    <title>{{$reservasi->kode_booking}}</title>
+
     <style>
         table {
             font-family: arial, sans-serif;
@@ -24,6 +27,8 @@
 
 <body>
 
+    <h2>HTML Table</h2>
+
     <table class="table table-bordered">
         <thead class="bg-primary text-white">
             <tr>
@@ -31,21 +36,14 @@
                 <th scope="col">NAMA</th>
                 <th scope="col">KELAS</th>
                 <th scope="col">JENIS LAPANGAN</th>
-                @if ($reservasi->status == 'Ditolak')
-                    <th scope="col">Alasan Ditolak</th>
-                @endif
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>{{ $reservasi->kode_booking }}</td>
-                <td>{{ $reservasi->user->name }}</td>
-                <td>{{ $reservasi->user->kelas_id }}</td>
-                <td>{{ $reservasi->lapangan->nama_lapangan }}</td>
-                @if ($reservasi->status == 'Ditolak')
-                    <td>{{ $reservasi->alasan }}</td>
-                @endif
-            </tr>
+                <td>{{ $reservasi->penanggungjawab }}</td>
+                <td>{{ $reservasi->kelas_id}}</td>
+                <td>{{ $reservasi->lapangan->nama_lapangan}}</td>
         </tbody>
     </table>
 </body>

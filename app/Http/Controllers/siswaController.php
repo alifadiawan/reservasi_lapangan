@@ -63,7 +63,6 @@ class siswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $message = [
             'required' => ':attribute harus diisi ',
             'min' => ':attribute minimal :min karakter ya ',
@@ -76,25 +75,36 @@ class siswaController extends Controller
             'waktu_mulai'=> 'required',
             'waktu_selesai'=> 'required',
             'kegiatan'=> 'required',
-            'penanggungjawab'=> 'required',
+            'penanggungjawab'=> 'required', 
         ], $message );
 
-        reservasi::create([
-            'jenis_lapangan_id' => $request->jenis_lapangan_id,
-            'user_id' => $request ->user_id,
-            'tanggal'=> $request-> tanggal,
-            'waktu_mulai'=> $request-> waktu_mulai,
-            'waktu_selesai'=> $request-> waktu_selesai,
-            'kegiatan'=> $request -> kegiatan ,
-            'penanggungjawab'=> $request-> penanggungjawab,
-            'tipe_pemesan'=> $request-> tipe_pemesan,
-            'status'=> $request-> status,
-            'kode_booking' => $this->KodeUnik()
-        ]); 
 
-        notify()->success('siswa berhasil melakukan reservasi');
-        // Session::flash('success');
-        return redirect('/siswa');
+        //cek waktu
+        $start = $request->waktu_mulai;
+        $end = $request->waktu_selesai;
+                
+        if($start > $end or $end - $start > 8 ){
+            Session::flash('salah', 'Waktu tidak valid / lebih dari 8 jam ');
+            return redirect('/siswa');
+        }else{
+            reservasi::create([
+                'jenis_lapangan_id' => $request->jenis_lapangan_id,
+    
+                //user yang sedang login 
+                'user_id'=> $request-> user()->id,
+    
+                'tanggal'=> $request-> tanggal,
+                'waktu_mulai'=> $start,
+                'waktu_selesai'=> $end,
+                'kegiatan'=> $request -> kegiatan ,
+                'penanggungjawab'=> $request-> penanggungjawab,
+                'tipe_pemesan'=> $request-> tipe_pemesan,
+                'status'=> $request-> status,
+                'kode_booking' => $this->KodeUnik()
+            ]); 
+            Session::flash('success', 'data berhasil ditambah !!!');
+            return redirect('/siswa');
+        }      
     }
 
     /**
